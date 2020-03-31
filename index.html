@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/FortAwesome/Font-Awesome@5.12.1/css/fontawesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/FortAwesome/Font-Awesome@5.12.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav>
+      <button id="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      <!--<img src="assets/logo.png" alt="ELTE Logo" id="logo" />-->
+      <span id="logo">
+        <i class="fas camera-retro"></i>
+      </span>
+      <ul id="menu">
+        <li>
+          <a href="#!/index">
+            <i class="fas fa-home"></i><span>Kezdőlap</span>
+          </a>
+        </li>
+        <li>
+          <a href="#!/camera">
+            <i class="fas fa-camera"></i><span>Kamera</span>
+          </a>
+        </li>
+        <li>
+          <a href="#!/gps">  
+            <i class="fas fa-map-marker-alt"></i><span>GPS Tracker</span>
+          </a>
+        </li>
+        <li>
+          <a href="#!/map">
+            <i class="fas fa-map-marked-alt"></i><span>Térkép</span>
+          </a>
+        </li>
+        <li>
+          <a href="#!/weather">
+            <i class="fas fa-cloud-sun"></i><span>Időjárás</span>
+          </a>
+        </li>
+        <li>
+          <a href="#!/calculator">
+            <i class="fas fa-keyboard"></i><span>Kalkulátor</span>
+          </a>
+        </li>
+        <li>
+          <a href="#!/galery">
+            <i class="fas fa-images"></i><span>Galéria</span>
+          </a>
+        </li>
+        <ul id="rightMenu">
+          |<li>
+            <a href="#!/profile">
+              <i class="fas fa-user"></i><span></span>
+            </a>
+          </li>
+          <li>
+            <a href="#!/settings">
+              <i class="fas fa-cog"></i><span></span>
+            </a>
+          </li>
+        </ul>
+      </ul>
+    </nav>
+    <div id="backdrop"></div>
+    <div id="background"></div>
+    <main></main>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="scripts/script.js"></script>
+    <script src="scripts/app-data.js"></script>
+    <script src="scripts/navigation.js"></script>
+  </body>
+</html>
