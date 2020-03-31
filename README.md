@@ -152,17 +152,17 @@ Egy mobilon használható webes appot szeretnénk megvalósítani, mely kirándu
 # Drótváztervek:
 
 ## Kezdőoldal mobilon
-![](https://github.com/elte-fi/project-3-csoport/blob/master/src/index_mobil.jpg)
+![](https://github.com/elte-fi/project-3-csoport/blob/master/doc/src/index_mobil.jpg)
 
 
 ## Kezdőoldal monitoron
-![](https://github.com/elte-fi/project-3-csoport/blob/master/src/index_monitor.jpg)
+![](https://github.com/elte-fi/project-3-csoport/blob/master/doc/src/index_monitor.jpg)
 
 ## Galéria
 
 ### Időrendben
-![](https://github.com/elte-fi/project-3-csoport/blob/master/src/gallery1.jpg)
+![](https://github.com/elte-fi/project-3-csoport/blob/master/doc/src/gallery1.jpg)
 
 ### Helyadat szerint
-![](https://github.com/elte-fi/project-3-csoport/blob/master/src/gallery2.jpg)
-![](https://github.com/elte-fi/project-3-csoport/blob/master/src/gallery3.jpg)
+![](https://github.com/elte-fi/project-3-csoport/blob/master/doc/src/gallery2.jpg)
+![](https://github.com/elte-fi/project-3-csoport/blob/master/doc/src/gallery3.jpg)
