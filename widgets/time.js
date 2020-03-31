@@ -6,13 +6,13 @@ export function load(widgetDatas) {
     var timezoneDirection = ""
     if(date.getTimezoneOffset() < 0) timezoneDirection = "+";
 
-    const datetime = "Jelenlegi dátum: " + date.getFullYear() + "."
+    const datetime = "<p>" + date.getFullYear() + "."
     + (date.getMonth()+1)  + "." 
     + date.getDate() + ".   "
     + date.getHours() + ":"
     + date.getMinutes() + ":"
     + date.getSeconds() + ` (UTC${timezoneDirection}`
-    + (date.getTimezoneOffset()*-1 / 60) + ")";
+    + (date.getTimezoneOffset()*-1 / 60) + ")</p>";
     
     timeContainer.innerHTML += datetime;
 }

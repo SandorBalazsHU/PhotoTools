@@ -170,14 +170,12 @@ nav {
   }
 }
 
-main {
-  //padding: 10px 15px;
-
-  h1 {
+.page > h1 {
+    //text-align: center;
     margin: 0 0 15px 0;
-    font-size: 24px;
+    font-size: 1.5em;
+    color: white;
   }
-}
 
 #backdrop {
   background: rgba(0, 0, 0, 0.5);
@@ -197,5 +195,6 @@ main {
 #map {
   height: calc(100% - 50px);
   width: 100%;
-  position: absolute !important; 
+  position: absolute !important;
+  z-index: 0;
 }

@@ -1,22 +1,4 @@
-class AppDatas {
-  constructor(){
-      this.time = "";
-      this.coordinates = "";
-      this.currentWeather = "";
-      this.widgets = ["time", "coordinate", "city", "current-weather"];
-  }
-  setTime(time){
-      this.time = time;
-  }
-  setCoordinates(coordinates){
-      this.coordinates = coordinates;
-  }
-  setCurrentWeather(currentWeather){
-      this.currentWeather = currentWeather;
-  }
-}
-
-var appDatas = new AppDatas();
+var appData = new AppData();
 
 const main = document.querySelector("main");
 
@@ -27,7 +9,7 @@ async function loadPage(page) {
   }
   const html = await response.text();
   main.innerHTML = html;
-  (await import(`../pages/${page}.js`)).load(appDatas);
+  (await import(`../pages/${page}.js`)).load(appData);
 }
 
 function handleHashChange() {

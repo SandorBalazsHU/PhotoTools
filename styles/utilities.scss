@@ -30,7 +30,6 @@
 
 .card {
   background-color: $box-color;
-  //border: solid $tag-background-color 1px;
   border-radius: 3px;
   box-shadow: 3px 3px 6px $shadow-color;
   box-sizing: border-box;
@@ -38,10 +37,14 @@
   padding: 10px;
 
   h1 {
+    color: $primary-color;
     font-weight: 500;
     font-size: 1.1em;
     margin: 0;
-    padding: 0 0 10px 0;
+  }
+  
+  p {
+    margin: 0;
   }
 }
 
@@ -63,4 +66,5 @@
 }
 
 .page {
+  padding: 10px 15px;
 }

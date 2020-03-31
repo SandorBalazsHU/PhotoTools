@@ -9,7 +9,7 @@
   margin-top: 15px;
   width: 100%;
 }
-@media screen and (min-width: 450px) {
+@media screen and (min-width: 510px) {
   .columns .column {
     flex-grow: 1;
     flex-wrap: nowrap;
@@ -17,7 +17,7 @@
     max-width: 50%;
   }
 }
-@media screen and (min-width: 950px) {
+@media screen and (min-width: 900px) {
   .columns .column {
     max-width: 33.333%;
   }
@@ -27,7 +27,7 @@
 }
 
 .card {
-  background-color: rgba(128, 128, 128, 0.4);
+  background-color: rgba(255, 255, 255, 0.6);
   border-radius: 3px;
   box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
@@ -37,8 +37,8 @@
 .card h1 {
   font-weight: 500;
   font-size: 1.1em;
+  text-decoration: b;
   margin: 0;
-  padding: 0 0 10px 0;
 }
 
 .tag {
@@ -57,6 +57,10 @@
   padding-right: 2px;
 }
 
+.page {
+  padding: 10px 15px;
+}
+
 #capture {
   position: fixed;
   right: 50%;
@@ -65,12 +69,12 @@
   color: #7a8174;
   text-decoration: none;
 }
-@media screen and (min-width: 450px) {
+@media screen and (min-width: 510px) {
   #capture {
     margin-right: -2.25em;
   }
 }
-@media screen and (min-width: 950px) {
+@media screen and (min-width: 900px) {
   #capture {
     margin-right: -2.25em;
   }
@@ -79,21 +83,17 @@
   padding: 0.3em 0.3em;
   font-size: 3em;
 }
-@media screen and (min-width: 450px) {
+@media screen and (min-width: 510px) {
   #capture i {
     padding: 0.75em 0.75em;
     font-size: 3em;
   }
 }
-@media screen and (min-width: 950px) {
+@media screen and (min-width: 900px) {
   #capture i {
     padding: 0.75em 0.75em;
     font-size: 3em;
   }
-}
-
-#captureBtns {
-  color: wheat;
 }
 
 #back {
@@ -105,12 +105,12 @@
   color: #7a8174;
   text-decoration: none;
 }
-@media screen and (min-width: 450px) {
+@media screen and (min-width: 510px) {
   #back {
     margin-left: -2.25em;
   }
 }
-@media screen and (min-width: 950px) {
+@media screen and (min-width: 900px) {
   #back {
     margin-left: -2.25em;
   }
@@ -119,13 +119,13 @@
   padding: 0.3em 0.3em;
   font-size: 2.7em;
 }
-@media screen and (min-width: 450px) {
+@media screen and (min-width: 510px) {
   #back i {
     padding: 0.75em 0.75em;
     font-size: 3em;
   }
 }
-@media screen and (min-width: 950px) {
+@media screen and (min-width: 900px) {
   #back i {
     padding: 0.75em 0.75em;
     font-size: 3em;
@@ -141,12 +141,12 @@
   color: #7a8174;
   text-decoration: none;
 }
-@media screen and (min-width: 450px) {
+@media screen and (min-width: 510px) {
   #save {
     margin-right: -2.25em;
   }
 }
-@media screen and (min-width: 950px) {
+@media screen and (min-width: 900px) {
   #save {
     margin-right: -2.25em;
   }
@@ -155,13 +155,13 @@
   padding: 0.3em 0.3em;
   font-size: 2.7em;
 }
-@media screen and (min-width: 450px) {
+@media screen and (min-width: 510px) {
   #save i {
     padding: 0.75em 0.75em;
     font-size: 3em;
   }
 }
-@media screen and (min-width: 950px) {
+@media screen and (min-width: 900px) {
   #save i {
     padding: 0.75em 0.75em;
     font-size: 3em;
@@ -198,15 +198,15 @@
   right: 50%;
   margin-right: -1.8em;
   bottom: 0px;
-  color: #517d81;
+  color: #05386b;
   text-decoration: none;
 }
-@media screen and (min-width: 450px) {
+@media screen and (min-width: 510px) {
   #save2 {
     margin-right: -2.25em;
   }
 }
-@media screen and (min-width: 950px) {
+@media screen and (min-width: 900px) {
   #save2 {
     margin-right: -2.25em;
   }
@@ -215,13 +215,13 @@
   padding: 0.3em 0.3em;
   font-size: 3em;
 }
-@media screen and (min-width: 450px) {
+@media screen and (min-width: 510px) {
   #save2 i {
     padding: 0.75em 0.75em;
     font-size: 3em;
   }
 }
-@media screen and (min-width: 950px) {
+@media screen and (min-width: 900px) {
   #save2 i {
     padding: 0.75em 0.75em;
     font-size: 3em;
@@ -271,7 +271,7 @@ body {
 
 nav {
   color: white;
-  background: #517d81;
+  background: #05386b;
   height: 48px;
   display: flex;
   align-items: center;
@@ -282,7 +282,7 @@ nav #menu-trigger {
 nav #logo {
   color: Tomato;
 }
-@media screen and (min-width: 950px) {
+@media screen and (min-width: 900px) {
   nav #logo {
     font-size: 3em;
     justify-self: left;
@@ -290,7 +290,7 @@ nav #logo {
     padding: 0 10px;
   }
 }
-@media screen and (min-width: 450px) {
+@media screen and (min-width: 510px) {
   nav #logo {
     font-size: 2em;
   }
@@ -340,7 +340,7 @@ nav #menu #rightMenu {
 nav #menu #rightMenu i {
   padding: 0;
 }
-@media screen and (min-width: 450px) {
+@media screen and (min-width: 510px) {
   nav #menu {
     background: none;
     display: inline-block;
@@ -365,7 +365,7 @@ nav #menu #rightMenu i {
     display: inline-block;
   }
 }
-@media screen and (min-width: 950px) {
+@media screen and (min-width: 900px) {
   nav #menu {
     order: 3;
   }
@@ -393,15 +393,16 @@ nav #menu-toggle {
   margin: 5px;
   width: 35px;
 }
-@media screen and (min-width: 950px) {
+@media screen and (min-width: 900px) {
   nav #menu-toggle {
     display: none;
   }
 }
 
-main h1 {
+.page > h1 {
   margin: 0 0 15px 0;
-  font-size: 24px;
+  font-size: 1.5em;
+  color: white;
 }
 
 #backdrop {
@@ -422,6 +423,7 @@ main h1 {
   height: calc(100% - 50px);
   width: 100%;
   position: absolute !important;
+  z-index: 0;
 }
 
 /*# sourceMappingURL=style.css.map */
