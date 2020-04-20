@@ -1,3 +1,7 @@
+var latitude;
+var longitude;
+var name;
+
 export async function load() {
 
     preventScrolling()
@@ -44,12 +48,6 @@ export async function load() {
     camera.width = window.innerWidth;
   
     captureBtn.addEventListener("click", function() {
-        console.log(
-          "camera he: " + document.querySelector("video").clientHeight + "\n" +
-          "camera wi " + camera.width + "\n" +
-          "main wi " + document.querySelector("#cameraPage").clientWidth + "\n" +
-          "div " + document.querySelector("#cameraPage").clientWidth / camera.height
-        );
 
         image.height = cameraRatio*camera.width;
         image.width = camera.width;
@@ -57,21 +55,12 @@ export async function load() {
         image.style.display = "block";
         camera.style.display = "none";
 
-        const context = image.getContext("2d");
-        console.log(document.querySelector("#cameraPage").clientHeight);
+        const context = image.getContext("2d"); 
         context.drawImage(camera, 0, 0, image.width, image.height);
-
-        //context.font = "20px Consolas";
-        //context.fillStyle = "white";
-        //context.fillText("#mobilweb #elteik", 30, 30);
-
 
         captureBtn.style.display = "none";
         saveBtn.style.display = "block";
         backBtn.style.display = "block";
-
-        getLocation();
-        getTime();
 
     });
 
@@ -102,7 +91,7 @@ export async function load() {
   
 
     saveBtn2.addEventListener("click", function() {
-      //saves img
+      saveImage();
 
       captureBtn.style.display = "block";
       image.style.display = "none";
@@ -110,7 +99,6 @@ export async function load() {
 
       document.querySelector("#backdrop").style.display = "none";
 
-      comment.value = "";
       comment.style.display = "none";
       saveBtn2.style.display = "none";
 
@@ -124,21 +112,71 @@ export async function load() {
 
 }
 
+function saveImage() {
+  var reader = new FileReader();
+  name = (Date.now() + '.png');
+  reader.addEventListener("load", function () {
+      if (this.result && localStorage) {
+          window.localStorage.setItem(name, this.result);
+      } else {
+          alert();
+      }
+  });
 
-function getTime(){
-  const time = new Date();
-  console.log(time.getFullYear() + "-" + (time.getMonth()+1) + "-" + time.getDate() + " " + time.getHours() + ":" + time.getMinutes());
+  document.querySelector("#imageCanvas").toBlob(function(blob) {
+    reader.readAsDataURL(blob);
+  }, 'image/wbmp');
+
+  saveImgData1();
 }
 
-function getLocation() {
+
+var openFile = function(event) {
+  var input = event.target;
+
+  var reader = new FileReader();
+  reader.onload = function(){
+    var dataURL = reader.result;
+    var output = document.getElementById('output');
+    output.src = dataURL;
+  };
+  reader.readAsDataURL(input.files[0]);
+};
+
+
+function getDateString(){
+  const time = new Date();
+  return (time.getFullYear() + "-" + (time.getMonth()+1) + "-" + time.getDate() + " " + time.getHours() + ":" + time.getMinutes());
+}
+
+function saveImgData1() {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
+    navigator.geolocation.getCurrentPosition(saveImgData2);
   }
 }
 
-function showPosition(position) {
-  console.log("Latitude: " + position.coords.latitude +
-  " Longitude: " + position.coords.longitude);
+
+function saveImgData2(position){
+  var newData = { 
+    'longitude': position.coords.longitude, 
+    'latitude': position.coords.latitude, 
+    'date': getDateString(),
+    'fileName': name,
+    'comment': document.querySelector("#comment").value
+  };
+  document.querySelector("#comment").value = "";
+
+  var file = localStorage.getItem('database.json');
+  if(!file){
+    var data = [];
+    localStorage.setItem('database.json', JSON.stringify(data));
+  }else{
+    var data = JSON.parse(file);
+  }
+
+  data.push(newData);
+  localStorage.removeItem('database.json');
+  localStorage.setItem('database.json', JSON.stringify(data));
 }
 
 
