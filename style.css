@@ -35,9 +35,12 @@
   padding: 10px;
 }
 .card h1 {
+  color: #05386b;
   font-weight: 500;
   font-size: 1.1em;
-  text-decoration: b;
+  margin: 0;
+}
+.card p {
   margin: 0;
 }
 
