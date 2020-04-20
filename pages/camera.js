@@ -10,20 +10,49 @@ export async function load() {
     const saveBtn2 = document.querySelector("#save2");
     const comment = document.querySelector("#comment");
 
+    let cameraRatio = 0;
+
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: {
+        torch: true,
+        frameRate: 60
+      }
+    });
+
+    camera.srcObject = stream;
+    camera.play();
+
+
+    camera.addEventListener('loadeddata', function() {
+      const w = camera.videoWidth;
+      const h = camera.videoHeight;
+      if (w && h) {
+        camera.style.width = w;
+        camera.style.height = h;
+        cameraRatio = h/w;
+      }
+    });
+
+
+    /*console.log(
+      "camera he: " + document.querySelector("video").clientHeight + "\n" +
+      "camera wi " + document.querySelector("video").clientWidth + "\n" +
+      "main wi " + document.querySelector("#cameraPage").clientWidth + "\n" +
+      "div " + document.querySelector("#cameraPage").clientWidth / camera.height
+    );*/
 
     camera.width = window.innerWidth;
-
   
     captureBtn.addEventListener("click", function() {
         console.log(
-          "camera he: " + document.querySelector("video").clientHeight + 
-          "camera wi " + camera.width + 
-          "main wi " + document.querySelector("#cameraPage").clientWidth +
+          "camera he: " + document.querySelector("video").clientHeight + "\n" +
+          "camera wi " + camera.width + "\n" +
+          "main wi " + document.querySelector("#cameraPage").clientWidth + "\n" +
           "div " + document.querySelector("#cameraPage").clientWidth / camera.height
         );
 
-        image.height = document.querySelector("#cameraPage").clientWidth;
-        image.width = camera.width * document.querySelector("#cameraPage").clientWidth / document.querySelector("video").clientHeight;
+        image.height = cameraRatio*camera.width;
+        image.width = camera.width;
 
         image.style.display = "block";
         camera.style.display = "none";
@@ -31,6 +60,7 @@ export async function load() {
         const context = image.getContext("2d");
         console.log(document.querySelector("#cameraPage").clientHeight);
         context.drawImage(camera, 0, 0, image.width, image.height);
+
         //context.font = "20px Consolas";
         //context.fillStyle = "white";
         //context.fillText("#mobilweb #elteik", 30, 30);
@@ -92,16 +122,6 @@ export async function load() {
 
     });
 
-
-    const stream = await navigator.mediaDevices.getUserMedia({
-      video: {
-        torch: true,
-        frameRate: 60
-      }
-    });
-  
-    camera.srcObject = stream;
-    camera.play();
 }
 
 

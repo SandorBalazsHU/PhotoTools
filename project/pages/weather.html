@@ -1,0 +1,1 @@
+<h1>Weather page</h1>
