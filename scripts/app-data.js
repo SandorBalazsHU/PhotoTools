@@ -1,8 +1,5 @@
-class AppData {
+export class AppData {
     constructor(){
-        this.time = "";
-        this.position = "";
-        this.currentWeather = "";
         this.widgets = ["time", "coordinate", "city", "current-weather"];
         getPosition()
     }
@@ -18,4 +15,4 @@ class AppData {
     setCurrentWeather(currentWeather){
         this.currentWeather = currentWeather;
     }
-  }
+}
