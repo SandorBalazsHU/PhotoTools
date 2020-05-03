@@ -26,8 +26,8 @@ export async function load() {
             console.log("lekértem a canvasokat: ");
             console.log(canvases);
             canvases.forEach((canvas) => {
-                canvas.width = 180;
-                canvas.height = 180;
+                canvas.width = window.innerWidth / 3 - 10;
+                canvas.height = window.innerWidth / 3 - 10;
                 canvas.addEventListener('click', showPhoto)
             });
             
