@@ -1,9 +1,9 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700&display=swap&subset=latin-ext");
-@import "variables"; // SCSS Import
+@import "variables";
 @import "helpers";
 @import "utilities";
-@import "camera";
-@import "gallery";
+@import "../widgets/widgets";
+@import "../pages/pages";
 
 body {
   margin: 0;

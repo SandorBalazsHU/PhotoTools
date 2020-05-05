@@ -2,16 +2,23 @@ class Time {
     static getTime() {
         return new Date();
     }
-    static getTimeZome(date) {
-        return date.time.getTimezoneOffset()*-1 / 60;
+    static getTimeZome(time) {
+        return time.getTimezoneOffset()*-1 / 60;
     }
-    getTimeZomeString(date) {
-        var timezoneDirection = date.getTimezoneOffset() < 0 ? "+" : "";
-        return "UTC${timezoneDirection}${this.getTimeZome()}";
+    static getTimeZoneString(time) {
+        var timezoneDirection = time.getTimezoneOffset() < 0 ? "+" : "";
+        var timeZone = time.getTimezoneOffset()*-1 / 60;
+        return `UTC${timezoneDirection}${timeZone}`;
     }
 }
 
 class GPS {
+    static GPSoptions = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
+    };
+
     static getPosition(options) {
         return new Promise(function (resolve, reject) {
             navigator.geolocation.getCurrentPosition(resolve, reject, options);
