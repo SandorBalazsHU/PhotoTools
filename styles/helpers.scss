@@ -11,3 +11,7 @@
     @content;
   }
 }
+
+@function max-height() {
+  @return calc(100vh - #{$navbar-height});
+}

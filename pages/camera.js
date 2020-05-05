@@ -1,5 +1,4 @@
-var latitude;
-var longitude;
+var pos;
 var name;
 
 export async function load() {
@@ -102,32 +101,17 @@ export async function load() {
       comment.style.display = "none";
       saveBtn2.style.display = "none";
 
-      //document.querySelector("#savedText").classList.toggle("fadeOut");
-      //document.querySelector("#savedText").classList.toggle("fadeOut");
-      //document.querySelector("#savedText").classList.add("fadeOut").show('slow');;
-      //console.log(document.querySelector("#savedText").classList);
-
+      document.getElementById('savedText').style.display = 'block';
+      setTimeout(function(){ document.getElementById('savedText').style.display = 'none';; }, 1950);
 
     });
 
 }
 
 function saveImage() {
-  var reader = new FileReader();
-  name = (Date.now() + '.png');
-  reader.addEventListener("load", function () {
-      if (this.result && localStorage) {
-          window.localStorage.setItem(name, this.result);
-      } else {
-          alert();
-      }
-  });
-
-  document.querySelector("#imageCanvas").toBlob(function(blob) {
-    reader.readAsDataURL(blob);
-  }, 'image/wbmp');
-
-  saveImgData1();
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(saveImage2);
+  }
 }
 
 
@@ -149,34 +133,35 @@ function getDateString(){
   return (time.getFullYear() + "-" + (time.getMonth()+1) + "-" + time.getDate() + " " + time.getHours() + ":" + time.getMinutes());
 }
 
-function saveImgData1() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(saveImgData2);
-  }
+function saveImage2(position) {
+  var reader = new FileReader();
+  name = (Date.now() + '.png');
+  reader.addEventListener("load", function () {
+      if (this.result && localStorage) {
+          saveImgData(this.result, position);
+      } else {
+          alert();
+      }
+  });
+
+  document.querySelector("#imageCanvas").toBlob(function(blob) {
+    reader.readAsDataURL(blob);
+  }, 'image/wbmp');
 }
 
 
-function saveImgData2(position){
+function saveImgData(imgBlob, position){
   var newData = { 
     'longitude': position.coords.longitude, 
     'latitude': position.coords.latitude, 
     'date': getDateString(),
     'fileName': name,
-    'comment': document.querySelector("#comment").value
+    'comment': document.querySelector("#comment").value,
+    'file': imgBlob
   };
   document.querySelector("#comment").value = "";
 
-  var file = localStorage.getItem('database.json');
-  if(!file){
-    var data = [];
-    localStorage.setItem('database.json', JSON.stringify(data));
-  }else{
-    var data = JSON.parse(file);
-  }
-
-  data.push(newData);
-  localStorage.removeItem('database.json');
-  localStorage.setItem('database.json', JSON.stringify(data));
+  saveIndexedDB (newData);
 }
 
 
@@ -207,4 +192,45 @@ function preventDefaultForScrollKeys(e) {
     e.preventDefault();
     return false;
   }
+}
+
+function openIndexedDB () {
+  var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB;
+  var openDB = indexedDB.open("PhotoTourStore", 1);
+
+  openDB.onupgradeneeded = function() {
+    var db = {}
+    db.result = openDB.result;
+    db.store = db.result.createObjectStore("PhotoTourStore", {keyPath: "fileName"});
+  };
+
+  return openDB;
+}
+
+function getStoreIndexedDB (openDB) {
+  var db = {};
+  db.result = openDB.result;
+  db.tx = db.result.transaction("PhotoTourStore", "readwrite");
+  db.store = db.tx.objectStore("PhotoTourStore");
+  //request.onsuccess = function(event) {
+      return db;
+  //}
+}
+
+function saveIndexedDB (data) {
+  var openDB = openIndexedDB();
+
+  openDB.onsuccess = function() {
+      var db = getStoreIndexedDB(openDB);
+      db.store.put({
+          fileName: data.fileName,
+          longitude: data.longitude,
+          latitude: data.latitude,
+          date: data.date,
+          comment: data.comment,
+          file: data.file,
+      });
+  }
+
+  return true;
 }
