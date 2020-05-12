@@ -30,7 +30,12 @@ class GPS {
 }
 
 class Weather {
+    static APIKEY = "22a4b426901996099500de4125c3b1da";
+    static UNIT = "metric";
     static getLocalWeather(position) {
-        return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric&APPID=22a4b426901996099500de4125c3b1da`).then(data => data.json());
+        return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=${Weather.UNITS}&APPID=${Weather.APIKEY}`).then(data => data.json());
+    }
+    static getWeatherForecast(position) {
+        return fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=${Weather.UNITS}&APPID=${Weather.APIKEY}`).then(data => data.json());
     }
 }

@@ -3,65 +3,88 @@ export async function load() {
     const availableWidgets = ["time"];
     var widgets = []
 
-    for (const widgetName of availableWidgets) {
-        const response = await fetch(`widgets/${widgetName}.html`);
-        if (!response.ok) {
-            //TODO
-            console.log(`ERROR(${err.code}): ${err.message}`);
-            continue;
+    for (var widgetName of availableWidgets) {
+        try {
+            const response = await fetch(`widgets/${widgetName}.html`);
+            const html = await response.text();
+            widgetsContainer.innerHTML += html;
+        } catch (error) {
+            console.error(`ERROR ${widgetName} HTML LOAD ERROR [${error.code}]: ${error.message}`);
+            console.error(error);
         }
-        const html = await response.text();
-        widgetsContainer.innerHTML += html;
         try {
             const newWidget = new (await import(`../widgets/${widgetName}.js`)).Widget;
             newWidget.load();
             widgets.push(newWidget);
         } catch (error) {
-            //TODO
-            console.log(`ERROR(${error.code}): ${error.message}`);
-            console.log(error);
+            console.error(`ERROR ${widgetName} JS LOAD ERROR [${error.code}]: ${error.message}`);
+            console.error(error);
         }
     }
 
-    var GPSstatus = "OK";
-    const position = "";
-
+    var position = new Error("NO DATA");
     try {
-        position = await GPS.getPosition(GPS.GPSoptions)
-        for (const widget of widgets) {
-            if(widget.subscriptions.includes("position")) {
-                widget.position(position, GPSstatus);
-            }
-        }
+        position = await GPS.getPosition(GPS.GPSoptions);
+        console.log(position);
     } catch (error) {
-        GPSstatus = `ERROR(${error.code}): ${error.message}`;
+        position = error;
+        console.error(`GPS ERROR [${error.code}]: ${error.message}`);
+        console.error(error);
+    }
+    for (var widget of widgets) {
+        if(widget.subscriptions.includes("position")) {
+            widget.position(position);
+        }
     }
 
-    const city = "";
-    if(GPSstatus == "OK") {
+    var city = new Error("NO DATA");
+    if(!(position instanceof Error)) {
         try {
-            city = await GPS.getLocation(position)
+            city = await GPS.getLocation(position);
+            console.log(city);
         } catch (error) {
-            status = `ERROR(${err.code}): ${err.message}`;
+            city = error;
+            console.error(`CITY LOAD ERROR [${error.code}]: ${error.message}`);
+            console.error(error);
         }
     }
-    for (const widget of widgets) {
+    for (var widget of widgets) {
         if(widget.subscriptions.includes("city")) {
-            widget.position(city, status);
+            widget.position(city);
         }
     }
-    
-    const weather = "";
-    if(status == "OK") {
+
+    var weather = new Error("NO DATA");
+    if(!(position instanceof Error)) {
         try {
-            const weather = await Weather.getLocalWeather(position)
+            weather = await Weather.getLocalWeather(position);
+            console.log(weather);
         } catch (error) {
-            status = `ERROR(${err.code}): ${err.message}`;
+            weather = error;
+            console.error(`WEATHER LOAD ERROR [${error.code}]: ${error.message}`);
+            console.error(error);
         }
     }
-    for (const widget of widgets) {
+    for (var widget of widgets) {
         if(widget.subscriptions.includes("weather")) {
-            widget.position(weather, status);
+            widget.position(weather);
+        }
+    }
+
+    var forecast = new Error("NO DATA");
+    if(!(position instanceof Error)) {
+        try {
+            forecast = await Weather.getWeatherForecast(position);
+            console.log(forecast);
+        } catch (error) {
+            forecast = error;
+            console.error(`WEATHER LOAD ERROR [${error.code}]: ${error.message}`);
+            console.error(error);
+        }
+    }
+    for (var widget of widgets) {
+        if(widget.subscriptions.includes("forecast")) {
+            widget.position(forecast);
         }
     }
 }
