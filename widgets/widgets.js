@@ -16,26 +16,34 @@ export async function load() {
             const newWidget = new (await import(`../widgets/${widgetName}.js`)).Widget;
             newWidget.load();
             widgets.push(newWidget);
-        } catch (err) {
+        } catch (error) {
             //TODO
-            console.log(`ERROR(${err.code}): ${err.message}`);
-            console.log(err);
+            console.log(`ERROR(${error.code}): ${error.message}`);
+            console.log(error);
         }
     }
 
     var GPSstatus = "OK";
+    const position = "";
 
-    const position = await GPS.getPosition(GPS.GPSoptions)
-    .catch(error => {GPSstatus = `ERROR(${error.code}): ${error.message}`;});
-    for (const widget of widgets) {
-        if(widget.subscriptions.includes("position")) {
-            widget.position(position, GPSstatus);
+    try {
+        position = await GPS.getPosition(GPS.GPSoptions)
+        for (const widget of widgets) {
+            if(widget.subscriptions.includes("position")) {
+                widget.position(position, GPSstatus);
+            }
         }
+    } catch (error) {
+        GPSstatus = `ERROR(${error.code}): ${error.message}`;
     }
 
+    const city = "";
     if(GPSstatus == "OK") {
-        const city = await GPS.getLocation(position)
-        .catch(err => {status = `ERROR(${err.code}): ${err.message}`;});
+        try {
+            city = await GPS.getLocation(position)
+        } catch (error) {
+            status = `ERROR(${err.code}): ${err.message}`;
+        }
     }
     for (const widget of widgets) {
         if(widget.subscriptions.includes("city")) {
@@ -43,9 +51,13 @@ export async function load() {
         }
     }
     
+    const weather = "";
     if(status == "OK") {
-        const weather = await Weather.getLocalWeather(position)
-        .catch(err => {status = `ERROR(${err.code}): ${err.message}`;});
+        try {
+            const weather = await Weather.getLocalWeather(position)
+        } catch (error) {
+            status = `ERROR(${err.code}): ${err.message}`;
+        }
     }
     for (const widget of widgets) {
         if(widget.subscriptions.includes("weather")) {
