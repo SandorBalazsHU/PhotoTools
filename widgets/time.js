@@ -1,17 +1,18 @@
 export class Widget {
     constructor(){
         this.subscriptions = ["position"];
+        this.digitalClock = new DigitalClock();
+        this.analogClock = new AnalogClock();
     }
     load() {
-        var digitalClock = new DigitalClock();
-        digitalClock.start();
-        var analogClock = new AnalogClock();
-        analogClock.start();
+        this.digitalClock.start();
+        this.analogClock.start();
     }
     async position(position) {
         if(!(position instanceof Error)) {
             console.log("getTimes");
             console.log(SunCalc.getTimes(new Date(), position.coords.latitude, position.coords.longitude));
+            this.analogClock.setSunDatas(SunCalc.getTimes(new Date(), position.coords.latitude, position.coords.longitude));
             console.log("getPosition");
             console.log(SunCalc.getPosition(new Date(), position.coords.latitude, position.coords.longitude));
             console.log("getMoonPosition");
@@ -54,7 +55,14 @@ class AnalogClock {
         this.ctx = this.timeCanvas.getContext("2d");
         this.radius = this.timeCanvas.height / 2;
         this.ctx.translate(this.radius, this.radius);
-        this.radius = this.radius * 0.90
+        this.radius = this.radius * 0.90;
+        this.sunDatasAviable = false;
+        this.sundatas = "";
+    }
+
+    setSunDatas(datas) {
+        this.sundatas = datas;
+        this.sunDatasAviable = true;
     }
 
     start() {
@@ -64,6 +72,7 @@ class AnalogClock {
 
     drawClock() {
         this.drawFace(this.ctx, this.radius);
+        if(this.sunDatasAviable) this.drawMarker(this.ctx, this.sundatas.goldenHour, this.sundatas.sunset);
         this.drawNumbers(this.ctx, this.radius);
         this.drawTime(this.ctx, this.radius);
     }
@@ -126,6 +135,7 @@ class AnalogClock {
 
     drawHand(ctx, pos, length, width) {
         this.ctx.beginPath();
+        this.ctx.strokeStyle = 'black';
         this.ctx.lineWidth = width;
         this.ctx.lineCap = "round";
         this.ctx.moveTo(0,0);
@@ -133,5 +143,29 @@ class AnalogClock {
         this.ctx.lineTo(0, -length);
         this.ctx.stroke();
         this.ctx.rotate(-pos);
+    }
+
+    drawMarker(ctx, from, to) {
+        var fromPosition = this.getPositionOnClock(from);
+        this.drawHand(this.ctx, fromPosition, this.radius*0.9, this.radius*0.02);
+        var toPosition = this.getPositionOnClock(to);
+        this.drawHand(this.ctx, toPosition, this.radius*0.9, this.radius*0.02);
+        this.ctx.beginPath();
+        this.ctx.strokeStyle = 'red';
+        this.ctx.lineWidth = this.radius/2;
+        this.ctx.lineCap = "butt";
+        this.ctx.arc(0, 0, this.radius/2, fromPosition-(Math.PI/2), toPosition-(Math.PI/2));
+        this.ctx.stroke();
+    }
+
+    getPositionOnClock(time) {
+        var hour = time.getHours();
+        var minute = time.getMinutes();
+        var second = time.getSeconds();
+        hour=hour%12;
+        hour=(hour*Math.PI/6)+
+        (minute*Math.PI/(6*60))+
+        (second*Math.PI/(360*60));
+        return hour;
     }
 }
