@@ -2,7 +2,6 @@
  * Widget manager modul and widget page.
  */
 
-
 /**
  * Global constant for the DEBUG mode.
  */
@@ -12,35 +11,22 @@ const debug = true;
  * The page asyncron runable function.
  */
 export async function load() {
-    /**
+    /*
      * Find the widgets container DIV.
      */
     const widgetsContainer = document.querySelector("#widgets");
-    /**
+    /*
      * The list of the available widgets.
      */
     const availableWidgets = ["time"];
-    /**
+    /*
      * The loaded widget objects.
      */
     var widgets = []
-    /**
-     * Load the widgets and the positions SYNCRON
-     * and load the city, the weather and the forecast ASYNCRON way.
-     */
-    getWidgets(availableWidgets, widgets);
-    getPosition(widgets);
-    loadCity(position, widgets);
-    loadWeather(position, widgets);
-    loadForecast(position, widgets);
-}
 
-/**
- * Load the widgets HTML objects and the Windget JS objects SYNCRON way (block, the running).
- * @param {List of the awailable widget objects} availableWidgets 
- * @param {List of the loadable widget objects} widgets 
- */
-function getWidgets(availableWidgets, widgets) {
+    /*
+     * Load the widgets HTML and JS objcts SYNCRON.
+     */
     for (var widgetName of availableWidgets) {
         try {
             const response = await fetch(`widgets/${widgetName}.html`);
@@ -59,15 +45,16 @@ function getWidgets(availableWidgets, widgets) {
             console.error(error);
         }
     }
-}
 
-/**
- * Get the GPS coordinats SYNCRON way (block, the running).
- * And call the widgets reciver methods.
- * @param {List of the loaded widget objects} widgets 
- */
-function getPosition(widgets) {
-    var position = new Error("NO DATA");
+    /*
+     * The empty position
+     */
+    var position = new Error("NO POSITION DATA");
+
+    /*
+     *  Load the positions SYNCRON.
+     */
+    if(debug) console.log("getPosition");
     try {
         position = await GPS.getPosition(GPS.GPSoptions);
         if(debug) console.log(position);
@@ -81,6 +68,13 @@ function getPosition(widgets) {
             widget.position(position);
         }
     }
+
+    /*
+     * Load the city, the weather and the forecast ASYNCRON way.
+     */
+    loadCity(position, widgets);
+    loadWeather(position, widgets);
+    loadForecast(position, widgets);
 }
 
 /**
@@ -90,7 +84,8 @@ function getPosition(widgets) {
  * @param {List of the loaded widget objects} widgets 
  */
 async function loadCity(position, widgets) {
-    var city = new Error("NO DATA");
+    if(debug) console.log("loadCity");
+    var city = new Error("NO CITY DATA");
     if(!(position instanceof Error)) {
         try {
             city = await GPS.getLocation(position);
@@ -100,6 +95,8 @@ async function loadCity(position, widgets) {
             console.error(`CITY LOAD ERROR [${error.code}]: ${error.message}`);
             console.error(error);
         }
+    } else {
+        console.error(position);
     }
     for (var widget of widgets) {
         if(widget.subscriptions.includes("city")) {
@@ -115,7 +112,8 @@ async function loadCity(position, widgets) {
  * @param {List of the loaded widget objects} widgets 
  */
 async function loadWeather(position, widgets) {
-    var weather = new Error("NO DATA");
+    if(debug) console.log("loadWeather");
+    var weather = new Error("NO WEATHER DATA");
     if(!(position instanceof Error)) {
         try {
             weather = await Weather.getLocalWeather(position);
@@ -125,6 +123,8 @@ async function loadWeather(position, widgets) {
             console.error(`WEATHER LOAD ERROR [${error.code}]: ${error.message}`);
             console.error(error);
         }
+    } else {
+        console.error(position);
     }
     for (var widget of widgets) {
         if(widget.subscriptions.includes("weather")) {
@@ -140,7 +140,8 @@ async function loadWeather(position, widgets) {
  * @param {List of the loaded widget objects} widgets 
  */
 async function loadForecast(position, widgets) {
-    var forecast = new Error("NO DATA");
+    if(debug) console.log("loadForecast");
+    var forecast = new Error("NO FORECAST DATA");
     if(!(position instanceof Error)) {
         try {
             forecast = await Weather.getWeatherForecast(position);
@@ -150,6 +151,8 @@ async function loadForecast(position, widgets) {
             console.error(`WEATHER LOAD ERROR [${error.code}]: ${error.message}`);
             console.error(error);
         }
+    } else {
+        console.error(position);
     }
     for (var widget of widgets) {
         if(widget.subscriptions.includes("forecast")) {
