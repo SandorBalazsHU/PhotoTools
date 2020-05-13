@@ -8,7 +8,7 @@ export class Widget {
         var analogClock = new AnalogClock();
         analogClock.start();
     }
-    position(position) {
+    async position(position) {
         if(!(position instanceof Error)) {
             console.log("getTimes");
             console.log(SunCalc.getTimes(new Date(), position.coords.latitude, position.coords.longitude));
