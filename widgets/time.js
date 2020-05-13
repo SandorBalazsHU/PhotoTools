@@ -72,16 +72,28 @@ class AnalogClock {
 
     drawClock() {
         this.drawFace(this.ctx, this.radius);
-        if(this.sunDatasAviable) this.drawMarker(this.ctx, this.sundatas.goldenHour, this.sundatas.sunset);
+        if(this.sunDatasAviable){
+            this.drawMarker(this.ctx, this.sundatas.goldenHour, this.sundatas.sunset, "Gold", "Goldenrod");
+            this.drawMarker(this.ctx, this.sundatas.sunsetStart, this.sundatas.sunset, "Orange", "DarkOrange");
+            this.drawMarker(this.ctx, this.sundatas.sunset, this.sundatas.dusk, "RoyalBlue", "Blue");
+            this.drawMarker(this.ctx, this.sundatas.dusk, this.sundatas.nauticalDusk, "MidnightBlue", "Navy");
+            this.drawMarker(this.ctx, this.sundatas.night, this.sundatas.nightEnd, "MidnightBlue", "Navy");
+            this.drawMarker(this.ctx, this.sundatas.nauticalDawn, this.sundatas.dawn, "RoyalBlue", "Blue");
+            /*this.drawMarker(this.ctx, this.sundatas.sunrise, this.sundatas.sunriseEnd, "Orange", "DarkOrange");
+            this.drawMarker(this.ctx, this.sundatas.sunriseEnd, this.sundatas.goldenHour, "Gold", "Goldenrod");*/
+            /*var fromPosition = this.getPositionOnClock(from);
+            this.drawHand(this.ctx, fromPosition, this.radius*0.75, this.radius*0.02, "Yellow");*/
+        }
         this.drawNumbers(this.ctx, this.radius);
         this.drawTime(this.ctx, this.radius);
+        this.drawCenter(this.ctx, this.radius);
     }
 
     drawFace(ctx, radius) {
         var grad;
         this.ctx.beginPath();
         this.ctx.arc(0, 0, this.radius, 0, 2*Math.PI);
-        this.ctx.fillStyle = 'white';
+        this.ctx.fillStyle = 'Gainsboro';
         this.ctx.fill();
         grad = this.ctx.createRadialGradient(0,0,this.radius*0.95, 0,0,this.radius*1.05);
         grad.addColorStop(0, '#333');
@@ -90,6 +102,9 @@ class AnalogClock {
         this.ctx.strokeStyle = grad;
         this.ctx.lineWidth = this.radius*0.1;
         this.ctx.stroke();
+    }
+
+    drawCenter(ctx, radius) {
         this.ctx.beginPath();
         this.ctx.arc(0, 0, this.radius*0.1, 0, 2*Math.PI);
         this.ctx.fillStyle = '#333';
@@ -99,6 +114,7 @@ class AnalogClock {
     drawNumbers(ctx, radius) {
         var ang;
         var num;
+        this.ctx.fillStyle = '#333';
         this.ctx.font = this.radius*0.15 + "px arial";
         this.ctx.textBaseline="middle";
         this.ctx.textAlign="center";
@@ -124,18 +140,18 @@ class AnalogClock {
         hour=(hour*Math.PI/6)+
         (minute*Math.PI/(6*60))+
         (second*Math.PI/(360*60));
-        this.drawHand(this.ctx, hour, this.radius*0.5, this.radius*0.07);
+        this.drawHand(this.ctx, hour, this.radius*0.5, this.radius*0.07, 'black');
         //minute
         minute=(minute*Math.PI/30)+(second*Math.PI/(30*60));
-        this.drawHand(this.ctx, minute, this.radius*0.8, this.radius*0.07);
+        this.drawHand(this.ctx, minute, this.radius*0.8, this.radius*0.07, 'black');
         // second
         second=(second*Math.PI/30);
-        this.drawHand(this.ctx, second, this.radius*0.9, this.radius*0.02);
+        this.drawHand(this.ctx, second, this.radius*0.9, this.radius*0.02, 'black');
     }
 
-    drawHand(ctx, pos, length, width) {
+    drawHand(ctx, pos, length, width, color) {
         this.ctx.beginPath();
-        this.ctx.strokeStyle = 'black';
+        this.ctx.strokeStyle = color;
         this.ctx.lineWidth = width;
         this.ctx.lineCap = "round";
         this.ctx.moveTo(0,0);
@@ -145,17 +161,19 @@ class AnalogClock {
         this.ctx.rotate(-pos);
     }
 
-    drawMarker(ctx, from, to) {
+    drawMarker(ctx, from, to, color, borderColor) {
+        this.ctx.globalAlpha = 0.2;
         var fromPosition = this.getPositionOnClock(from);
-        this.drawHand(this.ctx, fromPosition, this.radius*0.9, this.radius*0.02);
+        this.drawHand(this.ctx, fromPosition, this.radius*0.75, this.radius*0.02, borderColor);
         var toPosition = this.getPositionOnClock(to);
-        this.drawHand(this.ctx, toPosition, this.radius*0.9, this.radius*0.02);
+        this.drawHand(this.ctx, toPosition, this.radius*0.75, this.radius*0.02, borderColor);
         this.ctx.beginPath();
-        this.ctx.strokeStyle = 'red';
+        this.ctx.strokeStyle = color;
         this.ctx.lineWidth = this.radius/2;
         this.ctx.lineCap = "butt";
         this.ctx.arc(0, 0, this.radius/2, fromPosition-(Math.PI/2), toPosition-(Math.PI/2));
         this.ctx.stroke();
+        this.ctx.globalAlpha = 1.0;
     }
 
     getPositionOnClock(time) {
