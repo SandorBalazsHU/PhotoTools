@@ -70,6 +70,22 @@ class AnalogClock {
         setInterval(function(){_this.drawClock();}, 1000);
     }
 
+    /*
+        sunrise         sunrise (top edge of the sun appears on the horizon)
+        sunriseEnd      sunrise ends (bottom edge of the sun touches the horizon)
+        goldenHourEnd   morning golden hour (soft light, best time for photography) ends
+        solarNoon	    solar noon (sun is in the highest position)
+        goldenHour	    evening golden hour starts
+        sunsetStart	    sunset starts (bottom edge of the sun touches the horizon)
+        sunset	        sunset (sun disappears below the horizon, evening civil twilight starts)
+        dusk	        dusk (evening nautical twilight starts)
+        nauticalDusk	nautical dusk (evening astronomical twilight starts)
+        night	        night starts (dark enough for astronomical observations)
+        nadir	        nadir (darkest moment of the night, sun is in the lowest position)
+        nightEnd	    night ends (morning astronomical twilight starts)
+        nauticalDawn	nautical dawn (morning nautical twilight starts)
+        dawn	        dawn (morning nautical twilight ends, morning civil twilight starts)
+     */
     drawClock() {
         this.drawFace(this.ctx, this.radius);
         if(this.sunDatasAviable){
@@ -77,10 +93,13 @@ class AnalogClock {
             this.drawMarker(this.ctx, this.sundatas.sunsetStart, this.sundatas.sunset, "Orange", "DarkOrange");
             this.drawMarker(this.ctx, this.sundatas.sunset, this.sundatas.dusk, "RoyalBlue", "Blue");
             this.drawMarker(this.ctx, this.sundatas.dusk, this.sundatas.nauticalDusk, "MidnightBlue", "Navy");
+            this.drawMarker(this.ctx, this.sundatas.nauticalDusk, this.sundatas.night, "MidnightBlue", "Navy");
             this.drawMarker(this.ctx, this.sundatas.night, this.sundatas.nightEnd, "MidnightBlue", "Navy");
+            this.drawMarker(this.ctx, this.sundatas.nightEnd, this.sundatas.nauticalDawn, "RoyalBlue", "Blue");
             this.drawMarker(this.ctx, this.sundatas.nauticalDawn, this.sundatas.dawn, "RoyalBlue", "Blue");
-            /*this.drawMarker(this.ctx, this.sundatas.sunrise, this.sundatas.sunriseEnd, "Orange", "DarkOrange");
-            this.drawMarker(this.ctx, this.sundatas.sunriseEnd, this.sundatas.goldenHour, "Gold", "Goldenrod");*/
+            this.drawMarker(this.ctx, this.sundatas.dawn, this.sundatas.sunrise, "RoyalBlue", "Blue");
+            this.drawMarker(this.ctx, this.sundatas.sunrise, this.sundatas.sunriseEnd, "Orange", "DarkOrange");
+            this.drawMarker(this.ctx, this.sundatas.sunriseEnd, this.sundatas.goldenHourEnd, "Gold", "Goldenrod");
             /*var fromPosition = this.getPositionOnClock(from);
             this.drawHand(this.ctx, fromPosition, this.radius*0.75, this.radius*0.02, "Yellow");*/
         }
@@ -143,7 +162,7 @@ class AnalogClock {
         this.drawHand(this.ctx, hour, this.radius*0.5, this.radius*0.07, 'black');
         //minute
         minute=(minute*Math.PI/30)+(second*Math.PI/(30*60));
-        this.drawHand(this.ctx, minute, this.radius*0.8, this.radius*0.07, 'black');
+        //this.drawHand(this.ctx, minute, this.radius*0.8, this.radius*0.07, 'black');
         // second
         second=(second*Math.PI/30);
         this.drawHand(this.ctx, second, this.radius*0.9, this.radius*0.02, 'black');
@@ -162,7 +181,7 @@ class AnalogClock {
     }
 
     drawMarker(ctx, from, to, color, borderColor) {
-        this.ctx.globalAlpha = 0.2;
+        this.ctx.globalAlpha = 0.7;
         var fromPosition = this.getPositionOnClock(from);
         this.drawHand(this.ctx, fromPosition, this.radius*0.75, this.radius*0.02, borderColor);
         var toPosition = this.getPositionOnClock(to);
