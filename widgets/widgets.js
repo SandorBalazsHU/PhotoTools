@@ -1,4 +1,5 @@
 /**
+ * AX400
  * Widget manager modul and widget page.
  */
 

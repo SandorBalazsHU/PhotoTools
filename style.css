@@ -64,13 +64,23 @@
   padding: 10px 15px;
 }
 
-#time-container {
-  display: inline-block;
-  height: 100%;
+/*#digital-sun-clock {
+    float: left;
 }
 
-#time-analog-clock-canvas {
-  float: right;
+#analog-sun-clock {
+    float: right;
+}*/
+#digital-sun-clock > table > tr > td {
+  text-align: center;
+}
+
+#digital-sun-clock > table > tr:first-child {
+  text-align: right;
+}
+
+table, th, td {
+  border: 1px solid black;
 }
 
 #capture {

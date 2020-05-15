@@ -2,17 +2,23 @@ export class Widget {
     constructor(){
         this.subscriptions = ["position"];
         this.digitalClock = new DigitalClock();
-        this.analogClock = new AnalogClock();
+        this.analogSunClock = new AnalogSunClock();
+        this.digitalSunClock = new DigitalSunClock();
     }
     load() {
         this.digitalClock.start();
-        this.analogClock.start();
+        this.analogSunClock.start();
+        this.digitalSunClock.print();
     }
     async position(position) {
         if(!(position instanceof Error)) {
+            const time = Time.getTime();
+            const sunTimes = SunCalc.getTimes(time, position.coords.latitude, position.coords.longitude);
+            this.analogSunClock.setSunTimes(sunTimes);
+            this.digitalSunClock.setSunTimes(sunTimes);
+
             console.log("getTimes");
-            console.log(SunCalc.getTimes(new Date(), position.coords.latitude, position.coords.longitude));
-            this.analogClock.setSunDatas(SunCalc.getTimes(new Date(), position.coords.latitude, position.coords.longitude));
+            console.log(sunTimes);
             console.log("getPosition");
             console.log(SunCalc.getPosition(new Date(), position.coords.latitude, position.coords.longitude));
             console.log("getMoonPosition");
@@ -27,15 +33,15 @@ export class Widget {
 
 class DigitalClock {
     constructor() {
-        this.timeContainer = document.querySelector("#time-digital-clock");
+        this.timeContainer = document.querySelector("#digital-clock");
     }
 
     start() {
         var _this = this;
-        setInterval(function(){_this.printClock();}, 1000);
+        setInterval(function(){_this.print();}, 1000);
     }
 
-    printClock() {
+    print() {
         const time = Time.getTime();
         const datetime = "<p>"
         + time.getFullYear() + "."
@@ -49,20 +55,20 @@ class DigitalClock {
     }
 }
 
-class AnalogClock {
+class AnalogSunClock {
     constructor() {
-        this.timeCanvas = document.querySelector("#time-analog-clock-canvas");
+        this.timeCanvas = document.querySelector("#analog-sun-clock-canvas");
         this.ctx = this.timeCanvas.getContext("2d");
         this.radius = this.timeCanvas.height / 2;
         this.ctx.translate(this.radius, this.radius);
         this.radius = this.radius * 0.90;
-        this.sunDatasAviable = false;
-        this.sundatas = "";
+        this.sunTimesAviable = false;
+        this.sunTimes = "";
     }
 
-    setSunDatas(datas) {
-        this.sundatas = datas;
-        this.sunDatasAviable = true;
+    setSunTimes(times) {
+        this.sunTimes = times;
+        this.sunTimesAviable = true;
     }
 
     start() {
@@ -70,39 +76,9 @@ class AnalogClock {
         setInterval(function(){_this.drawClock();}, 1000);
     }
 
-    /*
-        sunrise         sunrise (top edge of the sun appears on the horizon)
-        sunriseEnd      sunrise ends (bottom edge of the sun touches the horizon)
-        goldenHourEnd   morning golden hour (soft light, best time for photography) ends
-        solarNoon	    solar noon (sun is in the highest position)
-        goldenHour	    evening golden hour starts
-        sunsetStart	    sunset starts (bottom edge of the sun touches the horizon)
-        sunset	        sunset (sun disappears below the horizon, evening civil twilight starts)
-        dusk	        dusk (evening nautical twilight starts)
-        nauticalDusk	nautical dusk (evening astronomical twilight starts)
-        night	        night starts (dark enough for astronomical observations)
-        nadir	        nadir (darkest moment of the night, sun is in the lowest position)
-        nightEnd	    night ends (morning astronomical twilight starts)
-        nauticalDawn	nautical dawn (morning nautical twilight starts)
-        dawn	        dawn (morning nautical twilight ends, morning civil twilight starts)
-     */
     drawClock() {
         this.drawFace(this.ctx, this.radius);
-        if(this.sunDatasAviable){
-            this.drawMarker(this.ctx, this.sundatas.goldenHour, this.sundatas.sunset, "Gold", "Goldenrod");
-            this.drawMarker(this.ctx, this.sundatas.sunsetStart, this.sundatas.sunset, "Orange", "DarkOrange");
-            this.drawMarker(this.ctx, this.sundatas.sunset, this.sundatas.dusk, "RoyalBlue", "Blue");
-            this.drawMarker(this.ctx, this.sundatas.dusk, this.sundatas.nauticalDusk, "MidnightBlue", "Navy");
-            this.drawMarker(this.ctx, this.sundatas.nauticalDusk, this.sundatas.night, "MidnightBlue", "Navy");
-            this.drawMarker(this.ctx, this.sundatas.night, this.sundatas.nightEnd, "MidnightBlue", "Navy");
-            this.drawMarker(this.ctx, this.sundatas.nightEnd, this.sundatas.nauticalDawn, "RoyalBlue", "Blue");
-            this.drawMarker(this.ctx, this.sundatas.nauticalDawn, this.sundatas.dawn, "RoyalBlue", "Blue");
-            this.drawMarker(this.ctx, this.sundatas.dawn, this.sundatas.sunrise, "RoyalBlue", "Blue");
-            this.drawMarker(this.ctx, this.sundatas.sunrise, this.sundatas.sunriseEnd, "Orange", "DarkOrange");
-            this.drawMarker(this.ctx, this.sundatas.sunriseEnd, this.sundatas.goldenHourEnd, "Gold", "Goldenrod");
-            /*var fromPosition = this.getPositionOnClock(from);
-            this.drawHand(this.ctx, fromPosition, this.radius*0.75, this.radius*0.02, "Yellow");*/
-        }
+        this.drawSunClock();
         this.drawNumbers(this.ctx, this.radius);
         this.drawTime(this.ctx, this.radius);
         this.drawCenter(this.ctx, this.radius);
@@ -159,13 +135,13 @@ class AnalogClock {
         hour=(hour*Math.PI/6)+
         (minute*Math.PI/(6*60))+
         (second*Math.PI/(360*60));
-        this.drawHand(this.ctx, hour, this.radius*0.5, this.radius*0.07, 'black');
+        this.drawHand(this.ctx, hour, this.radius*0.5, this.radius*0.07, '#333');
         //minute
         minute=(minute*Math.PI/30)+(second*Math.PI/(30*60));
-        //this.drawHand(this.ctx, minute, this.radius*0.8, this.radius*0.07, 'black');
+        this.drawHand(this.ctx, minute, this.radius*0.8, this.radius*0.07, '#333');
         // second
         second=(second*Math.PI/30);
-        this.drawHand(this.ctx, second, this.radius*0.9, this.radius*0.02, 'black');
+        this.drawHand(this.ctx, second, this.radius*0.9, this.radius*0.02, '#333');
     }
 
     drawHand(ctx, pos, length, width, color) {
@@ -180,19 +156,15 @@ class AnalogClock {
         this.ctx.rotate(-pos);
     }
 
-    drawMarker(ctx, from, to, color, borderColor) {
-        this.ctx.globalAlpha = 0.7;
+    drawMarker(ctx, from, to, color) {
         var fromPosition = this.getPositionOnClock(from);
-        this.drawHand(this.ctx, fromPosition, this.radius*0.75, this.radius*0.02, borderColor);
         var toPosition = this.getPositionOnClock(to);
-        this.drawHand(this.ctx, toPosition, this.radius*0.75, this.radius*0.02, borderColor);
         this.ctx.beginPath();
         this.ctx.strokeStyle = color;
         this.ctx.lineWidth = this.radius/2;
         this.ctx.lineCap = "butt";
         this.ctx.arc(0, 0, this.radius/2, fromPosition-(Math.PI/2), toPosition-(Math.PI/2));
         this.ctx.stroke();
-        this.ctx.globalAlpha = 1.0;
     }
 
     getPositionOnClock(time) {
@@ -204,5 +176,117 @@ class AnalogClock {
         (minute*Math.PI/(6*60))+
         (second*Math.PI/(360*60));
         return hour;
+    }
+
+    /*
+        sunrise         sunrise (top edge of the sun appears on the horizon)
+        sunriseEnd      sunrise ends (bottom edge of the sun touches the horizon)
+        goldenHourEnd   morning golden hour (soft light, best time for photography) ends
+        solarNoon	    solar noon (sun is in the highest position)
+        goldenHour	    evening golden hour starts
+        sunsetStart	    sunset starts (bottom edge of the sun touches the horizon)
+        sunset	        sunset (sun disappears below the horizon, evening civil twilight starts)
+        dusk	        dusk (evening nautical twilight starts)
+        nauticalDusk	nautical dusk (evening astronomical twilight starts)
+        night	        night starts (dark enough for astronomical observations)
+        nadir	        nadir (darkest moment of the night, sun is in the lowest position)
+        nightEnd	    night ends (morning astronomical twilight starts)
+        nauticalDawn	nautical dawn (morning nautical twilight starts)
+        dawn	        dawn (morning nautical twilight ends, morning civil twilight starts)
+     */
+    drawSunClock() {
+        if(this.sunTimesAviable) {
+            var midnight = Time.getTime();
+            midnight.setHours(0);
+            midnight.setMinutes(0);
+            midnight.setSeconds(0);
+            //Golden hour evening.
+            this.drawMarker(this.ctx, this.sunTimes.goldenHour, this.sunTimes.sunset, "Gold");
+            //Sunset.
+            this.drawMarker(this.ctx, this.sunTimes.sunsetStart, this.sunTimes.sunset, "OrangeRed");
+            //Twilight evening.
+            this.drawMarker(this.ctx, this.sunTimes.sunset, this.sunTimes.dusk, "SkyBlue");
+            //Nautical twilight evening.
+            this.drawMarker(this.ctx, this.sunTimes.dusk, this.sunTimes.nauticalDusk, "DodgerBlue");
+            //Astronomical twilight evening.
+            this.drawMarker(this.ctx, this.sunTimes.nauticalDusk, this.sunTimes.night, "RoyalBlue");
+            //Night
+            this.drawMarker(this.ctx, this.sunTimes.night, this.sunTimes.nightEnd, "MidnightBlue");
+            //Astronomical twilight morning.
+            this.drawMarker(this.ctx, this.sunTimes.nightEnd, this.sunTimes.nauticalDawn, "RoyalBlue");
+            //Nautical twilight morning.
+            this.drawMarker(this.ctx, this.sunTimes.nauticalDawn, this.sunTimes.dawn, "DodgerBlue");
+            //Twilight morning.
+            this.drawMarker(this.ctx, this.sunTimes.dawn, this.sunTimes.sunrise, "SkyBlue");
+            //Sunrise
+            this.drawMarker(this.ctx, this.sunTimes.sunrise, this.sunTimes.sunriseEnd, "OrangeRed");
+            //Golden hour morning.
+            this.drawMarker(this.ctx, this.sunTimes.sunriseEnd, this.sunTimes.goldenHourEnd, "Gold");
+            //Astronomical noon.
+            var solarNoonPosition = this.getPositionOnClock(this.sunTimes.solarNoon);
+            this.drawHand(this.ctx, solarNoonPosition, this.radius*0.75, this.radius*0.02, "Gold");
+        }
+    }
+}
+
+class DigitalSunClock {
+    constructor() {
+        this.eveningGoldenHourStart             = document.querySelector("#digital-sun-clock-eveningGoldenHourStart");
+        this.eveningGoldenHourEnd               = document.querySelector("#digital-sun-clock-eveningGoldenHourEnd");
+        this.sunsetStart                        = document.querySelector("#digital-sun-clock-sunsetStart");
+        this.sunsetEnd                          = document.querySelector("#digital-sun-clock-sunsetEnd");
+        this.eveningTwilightStart               = document.querySelector("#digital-sun-clock-eveningTwilightStart");
+        this.eveningTwilightEnd                 = document.querySelector("#digital-sun-clock-eveningTwilightEnd");
+        this.eveningNauticalTwilightStart       = document.querySelector("#digital-sun-clock-eveningNauticalTwilightStart");
+        this.eveningNauticalTwilightEnd         = document.querySelector("#digital-sun-clock-eveningNauticalTwilightEnd");
+        this.eveningAstronomicalTwilightStart   = document.querySelector("#digital-sun-clock-eveningAstronomicalTwilightStart");
+        this.eveningNightStart                  = document.querySelector("#digital-sun-clock-eveningNightStart");
+        this.eveningNightEnd                    = document.querySelector("#digital-sun-clock-eveningNightEnd");
+        this.eveningAstronomicalTwilightEnd     = document.querySelector("#digital-sun-clock-eveningAstronomicalTwilightEnd");
+        this.morningAstronomicalTwilightStart   = document.querySelector("#digital-sun-clock-morningAstronomicalTwilightStart");
+        this.morningAstronomicalTwilightEnd     = document.querySelector("#digital-sun-clock-morningAstronomicalTwilightEnd");
+        this.morningNauticalTwilightStart       = document.querySelector("#digital-sun-clock-morningNauticalTwilightStart");
+        this.morningNauticalTwilightEnd         = document.querySelector("#digital-sun-clock-morningNauticalTwilightEnd");
+        this.morningTwilightStart               = document.querySelector("#digital-sun-clock-morningTwilightStart");
+        this.morningTwilightEnd                 = document.querySelector("#digital-sun-clock-morningTwilightEnd");
+        this.sunriseStart                       = document.querySelector("#digital-sun-clock-sunriseStart");
+        this.sunriseEnd                         = document.querySelector("#digital-sun-clock-sunriseEnd");
+        this.morningGoldenHourStart             = document.querySelector("#digital-sun-clock-morningGoldenHourStart");
+        this.morningGoldenHourEnd               = document.querySelector("#digital-sun-clock-morningGoldenHourEnd");
+        this.sunTimesAviable = false;
+        this.sunTimes = "";
+    }
+
+    setSunTimes(times) {
+        this.sunTimes = times;
+        this.sunTimesAviable = true;
+        this.print();
+    }
+
+    print() {
+        if(this.sunTimesAviable) {
+            this.eveningGoldenHourStart.innerHTML           = this.sunTimes.goldenHour.toLocaleTimeString();
+            this.eveningGoldenHourEnd.innerHTML             = this.sunTimes.sunset.toLocaleTimeString();
+            this.sunsetStart.innerHTML                      = this.sunTimes.sunsetStart.toLocaleTimeString();
+            this.sunsetEnd.innerHTML                        = this.sunTimes.sunset.toLocaleTimeString();
+            this.eveningTwilightStart.innerHTML             = this.sunTimes.sunset.toLocaleTimeString();
+            this.eveningTwilightEnd.innerHTML               = this.sunTimes.dusk.toLocaleTimeString();
+            this.eveningNauticalTwilightStart.innerHTML     = this.sunTimes.dusk.toLocaleTimeString();
+            this.eveningNauticalTwilightEnd.innerHTML       = this.sunTimes.nauticalDusk.toLocaleTimeString();
+            this.eveningAstronomicalTwilightStart.innerHTML = this.sunTimes.nauticalDusk.toLocaleTimeString();
+            this.eveningNightStart.innerHTML                = this.sunTimes.night.toLocaleTimeString();
+            this.eveningNightEnd.innerHTML                  = this.sunTimes.night.toLocaleTimeString();
+            this.eveningAstronomicalTwilightEnd.innerHTML   = this.sunTimes.nightEnd.toLocaleTimeString();
+            this.morningAstronomicalTwilightStart.innerHTML = this.sunTimes.nightEnd.toLocaleTimeString();
+            this.morningAstronomicalTwilightEnd.innerHTML   = this.sunTimes.nauticalDawn.toLocaleTimeString();
+            this.morningNauticalTwilightStart.innerHTML     = this.sunTimes.nauticalDawn.toLocaleTimeString();
+            this.morningNauticalTwilightEnd.innerHTML       = this.sunTimes.dawn.toLocaleTimeString();
+            this.morningTwilightStart.innerHTML             = this.sunTimes.dawn.toLocaleTimeString();
+            this.morningTwilightEnd.innerHTML               = this.sunTimes.sunrise.toLocaleTimeString();
+            this.sunriseStart.innerHTML                     = this.sunTimes.sunrise.toLocaleTimeString();
+            this.sunriseEnd.innerHTML                       = this.sunTimes.sunriseEnd.toLocaleTimeString();
+            this.morningGoldenHourStart.innerHTML           = this.sunTimes.sunriseEnd.toLocaleTimeString();
+            this.morningGoldenHourEnd.innerHTML             = this.sunTimes.goldenHourEnd.toLocaleTimeString();
+        }
     }
 }

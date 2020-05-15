@@ -2,9 +2,81 @@
     <div id="time" class="card">
         <h1>A mai nap.</h1>
         <hr>
-        <div id="time-container">
-            <p id="time-digital-clock"></p>
+        <table>
+            <tr>
+                <td>Pontos idő: </td>
+                <td id="digital-clock" colspan="3"></td>
+                <td rowspan="12">
+                    <canvas id="analog-sun-clock-canvas" width="200" height="200"></canvas>
+                </td>
+            </tr>
+            <tr>
+                <td>Esti aranyóra: </td>
+                <td id="digital-sun-clock-eveningGoldenHourStart"></td>
+                <td>-</td>
+                <td id="digital-sun-clock-eveningGoldenHourEnd" colspan="1"></td>
+            </tr>
+            <tr>
+                <td>Naplemente: </td>
+                <td id="digital-sun-clock-sunsetStart"></td>
+                <td>-</td>
+                <td id="digital-sun-clock-sunsetEnd" colspan="1"></td>
+            </tr>
+            <tr>
+                <td>Esti szürkület: </td>
+                <td id="digital-sun-clock-eveningTwilightStart"></td>
+                <td>-</td>
+                <td id="digital-sun-clock-eveningTwilightEnd" colspan="1"></td>
+            </tr>
+            <tr>
+                <td>Esti tengeri szürkület: </td>
+                <td id="digital-sun-clock-eveningNauticalTwilightStart"></td>
+                <td>-</td>
+                <td id="digital-sun-clock-eveningNauticalTwilightEnd" colspan="1"></td>
+            </tr>
+            <tr>
+                <td>Esti csillagászati szürkület: </td>
+                <td id="digital-sun-clock-eveningAstronomicalTwilightStart"></td>
+                <td>-</td>
+                <td id="digital-sun-clock-eveningAstronomicalTwilightEnd" colspan="1"></td>
+            </tr>
+            <tr>
+                <td>Éjjszaka: </td>
+                <td id="digital-sun-clock-eveningNightStart"></td>
+                <td>-</td>
+                <td id="digital-sun-clock-eveningNightEnd" colspan="1"></td>
+            </tr>
+            <tr>
+                <td>Reggeli csillagászati szürkület: </td>
+                <td id="digital-sun-clock-morningAstronomicalTwilightStart"></td>
+                <td>-</td>
+                <td id="digital-sun-clock-morningAstronomicalTwilightEnd" colspan="1"></td>
+            </tr>
+            <tr>
+                <td>Reggeli tengeri szürkület: </td>
+                <td id="digital-sun-clock-morningNauticalTwilightStart"></td>
+                <td>-</td>
+                <td id="digital-sun-clock-morningNauticalTwilightEnd" colspan="1"></td>
+            </tr>
+            <tr>
+                <td>Reggeli szürkület: </td>
+                <td id="digital-sun-clock-morningTwilightStart"></td>
+                <td>-</td>
+                <td id="digital-sun-clock-morningTwilightEnd" colspan="1"></td>
+            </tr>
+            <tr>
+                <td>Napkelte: </td>
+                <td id="digital-sun-clock-sunriseStart"></td>
+                <td>-</td>
+                <td id="digital-sun-clock-sunriseEnd" colspan="1"></td>
+            </tr>
+            <tr>
+                <td>Reggeli aranyóra: </td>
+                <td id="digital-sun-clock-morningGoldenHourStart"></td>
+                <td>-</td>
+                <td id="digital-sun-clock-morningGoldenHourEnd" colspan="1"></td>
+            </tr>
+        </table>
         </div>
-        <canvas id="time-analog-clock-canvas" width="200" height="200">
     </div>
 </div>
