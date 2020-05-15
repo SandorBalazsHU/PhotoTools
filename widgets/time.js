@@ -43,14 +43,14 @@ class DigitalClock {
 
     print() {
         const time = Time.getTime();
-        const datetime = "<p>"
+        const datetime = "<b>"
         + time.getFullYear() + "."
         + (time.getMonth()+1)  + "." 
         + time.getDate() + ".   "
         + time.getHours() + ":"
         + time.getMinutes() + ":"
-        + time.getSeconds() + " ("
-        + Time.getTimeZoneString(time) + ")</p>";
+        + time.getSeconds() + "<br>("
+        + Time.getTimeZoneString(time) + ")</b>";
         this.timeContainer.innerHTML = datetime;
     }
 }

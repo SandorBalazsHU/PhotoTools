@@ -1,19 +1,77 @@
-/*#digital-sun-clock {
-    float: left;
+#time {
+    min-width: 300px;
+    table {
+        table-layout: auto;
+        width: 100%;
+    }
+    p {
+        display: inline-block;
+        font-size: 2em;
+    }
+    th,td {
+        word-wrap: break-word;
+    }
 }
 
 #analog-sun-clock {
-    float: right;
-}*/
-
-#digital-sun-clock > table > tr > td {
     text-align: center;
 }
 
-#digital-sun-clock > table > tr:first-child {
-    text-align: right;
+#digital-sun-clock-eveningGoldenHourLogo {
+    text-align: center;
+    color: Gold;
 }
 
-table, th, td {
+#digital-sun-clock-sunsetLogo {
+    text-align: center;
+    color: OrangeRed;
+}
+
+#digital-sun-clock-eveningTwilightLogo {
+    text-align: center;
+    color: SkyBlue;
+}
+
+#digital-sun-clock-eveningNauticalTwilightLogo {
+    text-align: center;
+    color: DodgerBlue;
+}
+
+#digital-sun-clock-eveningAstronomicalTwilightLogo {
+    text-align: center;
+    color: RoyalBlue;
+}
+
+#digital-sun-clock-eveningNightLogo {
+    text-align: center;
+    color: MidnightBlue;
+}
+
+#digital-sun-clock-morningAstronomicalTwilightLogo {
+    text-align: center;
+    color: RoyalBlue;
+}
+
+#digital-sun-clock-morningNauticalTwilightLogo {
+    text-align: center;
+    color: DodgerBlue;
+}
+
+#digital-sun-clock-morningTwilightLogo {
+    text-align: center;
+    color: SkyBlue;
+}
+
+#digital-sun-clock-sunriseStartLogo {
+    text-align: center;
+    color: OrangeRed;
+}
+
+#digital-sun-clock-morningGoldenHourLogo {
+    text-align: center;
+    color: Gold;
+}
+
+/*table, th, td {
     border: 1px solid black;
-  }
+}*/
