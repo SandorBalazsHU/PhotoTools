@@ -253,6 +253,8 @@ class DigitalSunClock {
         this.sunriseEnd                         = document.querySelector("#digital-sun-clock-sunriseEnd");
         this.morningGoldenHourStart             = document.querySelector("#digital-sun-clock-morningGoldenHourStart");
         this.morningGoldenHourEnd               = document.querySelector("#digital-sun-clock-morningGoldenHourEnd");
+        this.noon                               = document.querySelector("#digital-sun-clock-noon");
+        this.midnight                           = document.querySelector("#digital-sun-clock-midnight");
         this.sunTimesAviable = false;
         this.sunTimes = "";
     }
@@ -287,6 +289,8 @@ class DigitalSunClock {
             this.sunriseEnd.innerHTML                       = this.sunTimes.sunriseEnd.toLocaleTimeString();
             this.morningGoldenHourStart.innerHTML           = this.sunTimes.sunriseEnd.toLocaleTimeString();
             this.morningGoldenHourEnd.innerHTML             = this.sunTimes.goldenHourEnd.toLocaleTimeString();
+            this.noon.innerHTML                             = this.sunTimes.solarNoon.toLocaleTimeString();
+            this.midnight.innerHTML                         = this.sunTimes.nadir.toLocaleTimeString();
         }
     }
 }

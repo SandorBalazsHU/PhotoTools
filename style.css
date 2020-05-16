@@ -55,15 +55,6 @@
 }
 
 #time {
-  /*width: 100%;
-
-  @include tablet {
-    max-width: 50%;
-  }
-
-  @include desktop {
-    max-width: 40%;
-  }*/
   min-width: 300px;
 }
 #time table {
@@ -135,6 +126,26 @@
 #digital-sun-clock-morningGoldenHourLogo {
   text-align: center;
   color: Gold;
+}
+
+#digital-sun-clock-noonLogo {
+  text-align: center;
+  color: Yellow;
+  font-size: 1em;
+}
+
+#digital-sun-clock-noon {
+  text-align: center;
+}
+
+#digital-sun-clock-midnightLogo {
+  text-align: center;
+  color: MidnightBlue;
+  font-size: 1em;
+}
+
+#digital-sun-clock-midnight {
+  text-align: center;
 }
 
 table, th, td {
