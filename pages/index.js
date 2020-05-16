@@ -5,6 +5,6 @@ export async function load(widgetDatas) {
       return;
     }
     const html = await response.text();
-    main.innerHTML = html;
+    indexContent.innerHTML += html;
     (await import(`../widgets/widgets.js`)).load();
 }

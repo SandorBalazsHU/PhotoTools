@@ -1,23 +1,30 @@
 @import "variables";
 @import "helpers";
 
-.column {
-  margin-top: 15px;
-  width: 100%;
+.columns {
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-start;
+  flex-wrap: wrap;
 
-  @include tablet {
-    flex-grow: 1;
-    flex-wrap: nowrap;
-    width: auto;
-    max-width: 50%;
-  }
+  .column {
+    margin-top: 15px;
+    width: 100%;
 
-  @include desktop {
-    max-width: 33.333%;
-  }
+    @include tablet {
+      flex-grow: 1;
+      flex-wrap: nowrap;
+      width: auto;
+      max-width: 50%;
+    }
 
-  .card {
-    height: 100%;
+    @include desktop {
+      max-width: 33%;
+    }
+
+    .card {
+      height: 100%;
+    }
   }
 }
 
@@ -56,4 +63,8 @@
     font-size: 0.9em;
     padding-right: 2px;
   }
+}
+
+.page {
+  padding: 10px 15px;
 }

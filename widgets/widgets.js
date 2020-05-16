@@ -15,11 +15,11 @@ export async function load() {
     /*
      * Find the widgets container DIV.
      */
-    const widgetsContainer = document.querySelector("#widgets");
+    var widgetsContainer = document.querySelector("#widgets");
     /*
      * The list of the available widgets.
      */
-    const availableWidgets = ["time"];
+    const availableWidgets = ["time", "moon"];
     /*
      * The loaded widget objects.
      */
@@ -37,6 +37,8 @@ export async function load() {
             console.error(`ERROR ${widgetName} HTML LOAD ERROR [${error.code}]: ${error.message}`);
             console.error(error);
         }
+    }
+    for (var widgetName of availableWidgets) {
         try {
             const newWidget = new (await import(`../widgets/${widgetName}.js`)).Widget;
             newWidget.load();
