@@ -4,9 +4,8 @@ class AppData {
         this.position = "";
         this.currentWeather = "";
         this.widgets = ["time", "coordinate", "city", "current-weather"];
-        getPosition()
     }
-    getCurrentTime(time){
+    setTime(time){
         this.time = time;
     }
     getPosition(){
