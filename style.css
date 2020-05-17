@@ -157,6 +157,13 @@
 /*table, th, td {
     border: 1px solid black;
 }*/
+#moon table {
+  margin: auto;
+}
+#moon #moon-phase {
+  text-align: center;
+}
+
 #capture {
   position: fixed;
   right: 50%;

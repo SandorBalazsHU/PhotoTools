@@ -1,8 +1,8 @@
 export class Widget {
     constructor(){
         this.subscriptions = ["position"];
-        this.digitalClock = new DigitalClock();
-        this.analogSunClock = new AnalogSunClock();
+        this.digitalClock = new DigitalClock("#digital-clock");
+        this.analogSunClock = new AnalogSunClock("#analog-sun-clock-canvas");
         this.digitalSunClock = new DigitalSunClock();
     }
     load() {
@@ -27,13 +27,23 @@ export class Widget {
             console.log(SunCalc.getMoonIllumination(new Date()));
             console.log("getMoonTimes");
             console.log(SunCalc.getMoonTimes(new Date(), position.coords.latitude, position.coords.longitude));
+
+            /*var testTime = Time.getTime();
+            function test() {
+                testTime.setDate(testTime.getDate()+1);
+                console.log(testTime);
+                console.log(SunCalc.getMoonIllumination(testTime).fraction);
+                setTimeout( test, 50 );
+            }
+            
+            test();*/
         }
     }
 }
 
 class DigitalClock {
-    constructor() {
-        this.timeContainer = document.querySelector("#digital-clock");
+    constructor(containerID) {
+        this.timeContainer = document.querySelector(containerID);
     }
 
     start() {
@@ -56,9 +66,10 @@ class DigitalClock {
 }
 
 class AnalogSunClock {
-    constructor() {
-        this.timeCanvas = document.querySelector("#analog-sun-clock-canvas");
+    constructor(containerID) {
+        this.timeCanvas = document.querySelector(containerID);
         this.ctx = this.timeCanvas.getContext("2d");
+        this.ctx.imageSmoothingEnabled = true;
         this.radius = this.timeCanvas.height / 2;
         this.ctx.translate(this.radius, this.radius);
         this.radius = this.radius * 0.90;
