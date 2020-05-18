@@ -15,8 +15,11 @@
 #infoBtn{
     display: none;
     position: fixed;
-    right:50%;
-    margin-right:-$icon-size *((2 / 2) + 0.2);
+    //right:50%;
+    //margin-right:-$icon-size *((2 / 2) + 0.2);
+    left: 50%;
+    transform: translateX(-50%);
+
     bottom: 0px;
     color: $secondary-color;
     text-decoration: none;
@@ -203,4 +206,29 @@ button {
 @keyframes fadeIn {
   from {opacity: 0} 
   to {opacity: 1}
+}
+
+#loader {
+  position: fixed;
+  display: none;
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  right: 0;
+  left: 0;
+  margin-right: auto;
+  margin-left: auto;
+  top: 0;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+
+  width: 60px;
+  height: 60px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

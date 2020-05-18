@@ -5,6 +5,8 @@ export async function load() {
 
     preventScrolling()
 
+    document.querySelector("#backdrop").style.display = "none";
+
     const camera = document.querySelector("#camera"); //video
     const image = document.querySelector("#imageCanvas"); //canvas
     const captureBtn = document.querySelector("#capture");
@@ -115,7 +117,7 @@ function saveImage() {
 }
 
 
-var openFile = function(event) {
+/*var openFile = function(event) {
   var input = event.target;
 
   var reader = new FileReader();
@@ -125,12 +127,13 @@ var openFile = function(event) {
     output.src = dataURL;
   };
   reader.readAsDataURL(input.files[0]);
-};
+};*/
 
 
 function getDateString(){
   const time = new Date();
-  return (time.getFullYear() + "-" + (time.getMonth()+1) + "-" + time.getDate() + " " + time.getHours() + ":" + time.getMinutes());
+  const month = (time.getMonth()+1 / 10 < 10)  ?  ("0" + (time.getMonth()+1))  :  (time.getMonth()+1);
+  return (time.getFullYear() + "-" + month + "-" + time.getDate() + " " + time.getHours() + ":" + time.getMinutes());
 }
 
 function saveImage2(position) {
