@@ -30,116 +30,116 @@
         font-size: 1em;
         line-height: 1.4em;
     }
-}
 
-#digital-clock {
-    text-align: center;
-    span {
-        font-size: 0.8em;
+    #digital-clock {
+        text-align: center;
+        span {
+            font-size: 0.8em;
+        }
     }
-}
 
-#sun-clock-gps-details {
-    font-size: 0.9em;
-    margin: 15px 0px 5px 0px;
-    hr {
-        margin: 2px 0px 2px 0px;
+    #sun-clock-gps-details {
+        font-size: 0.9em;
+        margin: 15px 0px 5px 0px;
+        hr {
+            margin: 2px 0px 2px 0px;
+        }
+        span {
+            font-size: 0.8em;
+        }
     }
-    span {
-        font-size: 0.8em;
+
+    #sun-clock-city {
+        color: DarkGray;
+        font-size: 0.5em;
+        z-index: -1;
     }
-}
 
-#sun-clock-city {
-    color: DarkGray;
-    font-size: 0.5em;
-    z-index: -1;
-}
+    #sun-clock-position {
+        color: DarkGray;
+        font-size: 0.5em;
+        z-index: -1;
+    }
 
-#sun-clock-position {
-    color: DarkGray;
-    font-size: 0.5em;
-    z-index: -1;
-}
+    #sun-clock-datepicker-contener {
+        text-align: center;
+    }
 
-#sun-clock-datepicker-contener {
-    text-align: center;
-}
+    #analog-sun-clock {
+        text-align: center;
+    }
 
-#analog-sun-clock {
-    text-align: center;
-}
+    #digital-sun-clock-eveningGoldenHourLogo {
+        text-align: center;
+        color: Gold;
+    }
 
-#digital-sun-clock-eveningGoldenHourLogo {
-    text-align: center;
-    color: Gold;
-}
+    #digital-sun-clock-sunsetLogo {
+        text-align: center;
+        color: OrangeRed;
+    }
 
-#digital-sun-clock-sunsetLogo {
-    text-align: center;
-    color: OrangeRed;
-}
+    #digital-sun-clock-eveningTwilightLogo {
+        text-align: center;
+        color: SkyBlue;
+    }
 
-#digital-sun-clock-eveningTwilightLogo {
-    text-align: center;
-    color: SkyBlue;
-}
+    #digital-sun-clock-eveningNauticalTwilightLogo {
+        text-align: center;
+        color: DodgerBlue;
+    }
 
-#digital-sun-clock-eveningNauticalTwilightLogo {
-    text-align: center;
-    color: DodgerBlue;
-}
+    #digital-sun-clock-eveningAstronomicalTwilightLogo {
+        text-align: center;
+        color: RoyalBlue;
+    }
 
-#digital-sun-clock-eveningAstronomicalTwilightLogo {
-    text-align: center;
-    color: RoyalBlue;
-}
+    #digital-sun-clock-eveningNightLogo {
+        text-align: center;
+        color: MidnightBlue;
+    }
 
-#digital-sun-clock-eveningNightLogo {
-    text-align: center;
-    color: MidnightBlue;
-}
+    #digital-sun-clock-morningAstronomicalTwilightLogo {
+        text-align: center;
+        color: RoyalBlue;
+    }
 
-#digital-sun-clock-morningAstronomicalTwilightLogo {
-    text-align: center;
-    color: RoyalBlue;
-}
+    #digital-sun-clock-morningNauticalTwilightLogo {
+        text-align: center;
+        color: DodgerBlue;
+    }
 
-#digital-sun-clock-morningNauticalTwilightLogo {
-    text-align: center;
-    color: DodgerBlue;
-}
+    #digital-sun-clock-morningTwilightLogo {
+        text-align: center;
+        color: SkyBlue;
+    }
 
-#digital-sun-clock-morningTwilightLogo {
-    text-align: center;
-    color: SkyBlue;
-}
+    #digital-sun-clock-sunriseStartLogo {
+        text-align: center;
+        color: OrangeRed;
+    }
 
-#digital-sun-clock-sunriseStartLogo {
-    text-align: center;
-    color: OrangeRed;
-}
+    #digital-sun-clock-morningGoldenHourLogo {
+        text-align: center;
+        color: Gold;
+    }
 
-#digital-sun-clock-morningGoldenHourLogo {
-    text-align: center;
-    color: Gold;
-}
+    #digital-sun-clock-noonLogo {
+        text-align: center;
+        color: Yellow;
+        font-size: 1em;
+    }
 
-#digital-sun-clock-noonLogo {
-    text-align: center;
-    color: Yellow;
-    font-size: 1em;
-}
+    #digital-sun-clock-noon {
+        text-align: center;
+    }
 
-#digital-sun-clock-noon {
-    text-align: center;
-}
-
-#digital-sun-clock-midnightLogo {
-    text-align: center;
-    color: MidnightBlue;
-    font-size: 1em;
-}
-#digital-sun-clock-midnight {
-    text-align: center;
+    #digital-sun-clock-midnightLogo {
+        text-align: center;
+        color: MidnightBlue;
+        font-size: 1em;
+    }
+    #digital-sun-clock-midnight {
+        text-align: center;
+    }
 }

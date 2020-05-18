@@ -1,44 +1,91 @@
 export class Widget {
     constructor(){
         this.subscriptions = ["position"];
-        //this.moonPhaseDrawer = new MoonPhaseDrawer("#moon-phase-canvas");
         this.time = Time.getTime();
-        /*var testTime = Time.getTime();
-        testTime.setDate(testTime.getDate()+12);
-        console.log(testTime);
-        this.moonIllumination = SunCalc.getMoonIllumination(testTime);*/
-
-            /*var testTime = Time.getTime();
-            function test() {
-                testTime.setDate(testTime.getDate()+1);
-                console.log(testTime);
-                console.log(SunCalc.getMoonIllumination(testTime).fraction);
-                setTimeout( test, 50 );
-            }
-            
-            test();*/
-    }
-    load() {
-        //this.moonPhaseDrawer.print(this.moonIllumination.phase);
-        var testTime = Time.getTime();
-        function test() {
-            testTime.setDate(testTime.getDate()+1);
-            console.log(testTime);
-            var moonIllumination = SunCalc.getMoonIllumination(testTime);
-            var moonPhaseDrawer = new MoonPhaseDrawer("#moon-phase-canvas");
-            moonPhaseDrawer.print(moonIllumination.phase);
-            //setTimeout( test, 1000 );
+        this.moonTimes = "";
+        this.moonIllumination = "";
+        if(debug) {
+            console.log("getMoonIllumination");
+            console.log(this.moonIllumination);
         }
-        test();
+        this.moonPhaseDrawer = new MoonPhaseDrawer("#moon-phase-canvas");
+        this.moonRiseContainer = document.querySelector("#moon-moonrise");
+        this.moonSetContainer = document.querySelector("#moon-moonset");
+        this.moonAlvaysDawn = document.querySelector("#moon-alvays-dawn");
+        this.moonAlvaysUp = document.querySelector("#moon-alvays-up");
+        this.moonDate = document.querySelector("#moon-date");
+        this.currentPosition = new Error("NO POSITION DATA");
+        this.setDatePicker();
     }
+
+    load() {
+        this.moonIllumination = SunCalc.getMoonIllumination(this.time);
+        this.moonPhaseDrawer.print(this.moonIllumination.phase);
+        this.moonDate.innerHTML = "<b>" + this.time.toLocaleDateString() + "</b>";
+    }
+
     async position(position) {
         if(!(position instanceof Error)) {
-            const moonTimes = SunCalc.getMoonTimes(this.time, position.coords.latitude, position.coords.longitude);
-            var moonrise = document.querySelector("#moon-moonrise");
-            moonrise.innerHTML += moonTimes.rise.toLocaleTimeString();
-            var moonset = document.querySelector("#moon-moonset");
-            moonset.innerHTML += moonTimes.set.toLocaleTimeString();
+            this.currentPosition = position;
+            this.moonTimes = SunCalc.getMoonTimes(this.time, position.coords.latitude, position.coords.longitude);
+            if(debug) {
+                console.log("getMoonTimes");
+                console.log(this.moonTimes);
+            }
+            const moonRise = this.moonTimes.rise;
+            this.moonAlvaysDawn.innerHTML =        (typeof moonRise !== 'undefined') ? "" : "A hold nem kel fel.";
+            this.moonRiseContainer.innerHTML = (typeof moonRise !== 'undefined') ? moonRise.toLocaleTimeString() : "--:--:--";
+
+            const moonSet = this.moonTimes.set;
+            this.moonAlvaysUp.innerHTML =       (typeof moonSet !== 'undefined') ? "" : "A hold nem nyugszik le.";
+            this.moonSetContainer.innerHTML = (typeof moonSet !== 'undefined') ? moonSet.toLocaleTimeString() : "--:--:--";
         }
+    }
+
+    setDatePicker() {
+        this.datapicker = document.querySelector("#moon-datepicker");
+        this.datapicker.defaultValue = this.time.toISOString().slice(0, 10);
+        var _this = this;
+        this.datapicker.onchange = function fuck() {
+            var now = new Date(_this.datapicker.value);
+            _this.time.setFullYear(now.getFullYear());
+            _this.time.setMonth(now.getMonth());
+            _this.time.setDate(now.getDate());
+            if(!(_this.position instanceof Error)) {
+                _this.position(_this.currentPosition);
+                _this.load();
+            }
+        };
+
+        this.datapickerForwardButton = document.querySelector("#moon-datepicker-ForwardButton");
+        this.datapickerForwardButton.onclick = function() {
+            _this.time.setDate(_this.time.getDate()+1);
+            _this.datapicker.value = _this.time.toISOString().slice(0, 10);
+            if(!(_this.position instanceof Error)) {
+                _this.position(_this.currentPosition);
+                _this.load();
+            }
+        };
+
+        this.datapickerBackwardButton = document.querySelector("#moon-datepicker-BackwardButton");
+        this.datapickerBackwardButton.onclick = function() {
+            _this.time.setDate(_this.time.getDate()-1);
+            _this.datapicker.value = _this.time.toISOString().slice(0, 10);
+            if(!(_this.position instanceof Error)) {
+                _this.position(_this.currentPosition);
+                _this.load();
+            }
+        };
+
+        this.datapickerBackwardButton = document.querySelector("#moon-datepicker-ResetButton");
+        this.datapickerBackwardButton.onclick = function() {
+            _this.time.setTime(Time.getTime().getTime());
+            _this.datapicker.value = _this.time.toISOString().slice(0, 10);
+            if(!(_this.position instanceof Error)) {
+                _this.position(_this.currentPosition);
+                _this.load();
+            }
+        };
     }
 }
 

@@ -72,10 +72,6 @@ export class Widget {
                 console.log(SunCalc.getPosition(new Date(), position.coords.latitude, position.coords.longitude));
                 console.log("getMoonPosition");
                 console.log(SunCalc.getMoonPosition(new Date(), position.coords.latitude, position.coords.longitude));
-                console.log("getMoonIllumination");
-                console.log(SunCalc.getMoonIllumination(new Date()));
-                console.log("getMoonTimes");
-                console.log(SunCalc.getMoonTimes(new Date(), position.coords.latitude, position.coords.longitude));
             }
         }
     }
