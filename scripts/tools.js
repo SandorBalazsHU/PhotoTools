@@ -1,3 +1,8 @@
+/**
+ * Global constant for the DEBUG mode.
+ */
+const debug = false;
+
 class Time {
     static getTime() {
         return new Date();

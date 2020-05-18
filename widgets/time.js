@@ -1,32 +1,35 @@
 export class Widget {
-    constructor(){
+    constructor() {
+        this.time = Time.getTime();
         this.subscriptions = ["position"];
-        this.digitalClock = new DigitalClock("#digital-clock");
+        this.currentPosition = new Error("NO POSITION DATA");
+        this.digitalClock = new DigitalClock("#digital-clock", this.time);
         this.analogSunClock = new AnalogSunClock("#analog-sun-clock-canvas");
         this.digitalSunClock = new DigitalSunClock();
-        this.time = Time.getTime();
-        this.currentPosition = new Error("NO POSITION DATA");
+        
 
         this.datapicker = document.querySelector("#sun-clock-datepicker");
         this.datapicker.defaultValue = this.time.toISOString().slice(0, 10);
+        var thisOne = this;
 
         this.datapickerForwardButton = document.querySelector("#sun-clock-datepicker-ForwardButton");
-        this.datapickerForwardButton.onclick = fuck;
-        var t = this;
-        function fuck() {
-            t.time.setDate(t.time.getDate()+1);
-            t.datapicker.value = t.time.toISOString().slice(0, 10);
-            if(!(t.position instanceof Error)) {
-                t.position(t.currentPosition);
+        this.datapickerForwardButton.onclick = function fuck() {
+            thisOne.time.setDate(thisOne.time.getDate()+1);
+            thisOne.datapicker.value = thisOne.time.toISOString().slice(0, 10);
+            if(!(thisOne.position instanceof Error)) {
+                thisOne.position(thisOne.currentPosition);
+                thisOne.digitalClock.print();
             }
         };
 
         this.datapickerBackwardButton = document.querySelector("#sun-clock-datepicker-BackwardButton");
-        this.datapickerBackwardButton.onclick = function() {
-            var datapicker = document.querySelector("#sun-clock-datepicker");
-            var time = new Date(datapicker.value);
-            time.setDate(time.getDate()-1);
-            datapicker.value = time.toISOString().slice(0, 10);
+        this.datapickerBackwardButton.onclick = function fuck() {
+            thisOne.time.setDate(thisOne.time.getDate()-1);
+            thisOne.datapicker.value = thisOne.time.toISOString().slice(0, 10);
+            if(!(thisOne.position instanceof Error)) {
+                thisOne.position(thisOne.currentPosition);
+                thisOne.digitalClock.print();
+            }
         };
     }
     load() {
@@ -41,32 +44,25 @@ export class Widget {
             this.analogSunClock.setSunTimes(sunTimes);
             this.digitalSunClock.setSunTimes(sunTimes);
 
-            console.log("getTimes");
-            console.log(sunTimes);
-            console.log("getPosition");
-            console.log(SunCalc.getPosition(new Date(), position.coords.latitude, position.coords.longitude));
-            console.log("getMoonPosition");
-            console.log(SunCalc.getMoonPosition(new Date(), position.coords.latitude, position.coords.longitude));
-            console.log("getMoonIllumination");
-            console.log(SunCalc.getMoonIllumination(new Date()));
-            console.log("getMoonTimes");
-            console.log(SunCalc.getMoonTimes(new Date(), position.coords.latitude, position.coords.longitude));
-
-            /*var testTime = Time.getTime();
-            function test() {
-                testTime.setDate(testTime.getDate()+1);
-                console.log(testTime);
-                console.log(SunCalc.getMoonIllumination(testTime).fraction);
-                setTimeout( test, 50 );
+            if(debug) {
+                console.log("getTimes");
+                console.log(sunTimes);
+                console.log("getPosition");
+                console.log(SunCalc.getPosition(new Date(), position.coords.latitude, position.coords.longitude));
+                console.log("getMoonPosition");
+                console.log(SunCalc.getMoonPosition(new Date(), position.coords.latitude, position.coords.longitude));
+                console.log("getMoonIllumination");
+                console.log(SunCalc.getMoonIllumination(new Date()));
+                console.log("getMoonTimes");
+                console.log(SunCalc.getMoonTimes(new Date(), position.coords.latitude, position.coords.longitude));
             }
-            
-            test();*/
         }
     }
 }
 
 class DigitalClock {
-    constructor(containerID) {
+    constructor(containerID, time) {
+        this.time = time;
         this.timeContainer = document.querySelector(containerID);
     }
 
@@ -76,12 +72,13 @@ class DigitalClock {
     }
 
     print() {
-        const time = Time.getTime();
-        const datetime = ""
-        + time.toLocaleDateString() + " - "
-        + time.toTimeString().slice(0, 17) + "<br>"
-        + time.toTimeString().slice(17);
-        this.timeContainer.innerHTML = datetime;
+        var now = Time.getTime();
+        this.time.setHours(now.getHours());
+        this.time.setMinutes(now.getMinutes());
+        this.time.setSeconds(now.getSeconds());
+        this.timeContainer.innerHTML = this.time.toLocaleDateString() + " - "
+        + this.time.toTimeString().slice(0, 17) + "<br>"
+        + this.time.toTimeString().slice(17);
     }
 }
 

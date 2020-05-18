@@ -4,11 +4,6 @@
  */
 
 /**
- * Global constant for the DEBUG mode.
- */
-const debug = true;
-
-/**
  * The page asyncron runable function.
  */
 export async function load() {

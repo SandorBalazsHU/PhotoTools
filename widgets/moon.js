@@ -7,6 +7,16 @@ export class Widget {
         testTime.setDate(testTime.getDate()+12);
         console.log(testTime);
         this.moonIllumination = SunCalc.getMoonIllumination(testTime);*/
+
+            /*var testTime = Time.getTime();
+            function test() {
+                testTime.setDate(testTime.getDate()+1);
+                console.log(testTime);
+                console.log(SunCalc.getMoonIllumination(testTime).fraction);
+                setTimeout( test, 50 );
+            }
+            
+            test();*/
     }
     load() {
         //this.moonPhaseDrawer.print(this.moonIllumination.phase);
