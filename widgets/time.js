@@ -23,7 +23,7 @@ export class Widget {
         };
 
         this.datapickerForwardButton = document.querySelector("#sun-clock-datepicker-ForwardButton");
-        this.datapickerForwardButton.onclick = function fuck() {
+        this.datapickerForwardButton.onclick = function() {
             _this.time.setDate(_this.time.getDate()+1);
             _this.datapicker.value = _this.time.toISOString().slice(0, 10);
             if(!(_this.position instanceof Error)) {
@@ -33,7 +33,7 @@ export class Widget {
         };
 
         this.datapickerBackwardButton = document.querySelector("#sun-clock-datepicker-BackwardButton");
-        this.datapickerBackwardButton.onclick = function fuck() {
+        this.datapickerBackwardButton.onclick = function() {
             _this.time.setDate(_this.time.getDate()-1);
             _this.datapicker.value = _this.time.toISOString().slice(0, 10);
             if(!(_this.position instanceof Error)) {
@@ -43,7 +43,7 @@ export class Widget {
         };
 
         this.datapickerBackwardButton = document.querySelector("#sun-clock-datepicker-ResetButton");
-        this.datapickerBackwardButton.onclick = function fuck() {
+        this.datapickerBackwardButton.onclick = function() {
             _this.time.setTime(Time.getTime().getTime());
             _this.datapicker.value = _this.time.toISOString().slice(0, 10);
             if(!(_this.position instanceof Error)) {
@@ -60,14 +60,6 @@ export class Widget {
     async position(position) {
         if(!(position instanceof Error)) {
             this.currentPosition = position;
-
-            this.sunClockPosition = document.querySelector("#sun-clock-position");
-            this.sunClockPosition.innerHTML = "(H: " +
-            position.coords.longitude + " SZ: " +
-            position.coords.latitude + ") <br>" +
-            "Pontosság: " + position.coords.accuracy + "m " +
-            "Magasság: " + position.coords.altitude + "m " +
-            "Magasság pontossága: " + position.coords.altitudeAccuracy + "m ";
 
             const sunTimes = SunCalc.getTimes(this.time, position.coords.latitude, position.coords.longitude);
             this.analogSunClock.setSunTimes(sunTimes);
@@ -89,8 +81,21 @@ export class Widget {
     }
     async city(city) {
         if(!(city instanceof Error)) {
-            this.sunClockCity = document.querySelector("#sun-clock-city");
-            this.sunClockCity.innerHTML = city.address.city;
+            this.sunClockGPS = document.querySelector("#sun-clock-gps-details");
+            this.sunClockGPS.innerHTML += "<summary> Pozíció: " + city.address.country_code
+            + " " + city.address.postcode + " " + city.address.city + "</summary>"
+            +"<span>" + city.address.country + " " + city.address.country_code + " <br>" +
+            city.address.postcode + " " + city.address.city + " <br>" +
+            city.address.region + ", " + city.address.county + ", " +
+            city.address.municipality + ", " + "</span><br>";
+
+            const altitude = isExist(this.currentPosition.coords.altitude) ? this.currentPosition.coords.altitude : " - ";
+            const altitudeAccuracy = isExist(this.currentPosition.coords.altitudeAccuracy) ? this.currentPosition.coords.altitudeAccuracy : " - ";
+            this.sunClockGPS.innerHTML += "<hr><span>(H: " + this.currentPosition.coords.longitude + " SZ: " +
+            this.currentPosition.coords.latitude + ") <br>" +
+            "Pontosság: " + this.currentPosition.coords.accuracy + "m <br>" +
+            "Magasság: " + altitude + "m <br>" +
+            "Magasság pontossága: " + altitudeAccuracy + "m </span>";
         }
     }
 }
@@ -112,8 +117,8 @@ class DigitalClock {
         this.time.setMinutes(now.getMinutes());
         this.time.setSeconds(now.getSeconds());
         this.timeContainer.innerHTML = "<b>" + this.time.toLocaleDateString() + " - "
-        + this.time.toTimeString().slice(0, 17) + "</b><br>"
-        + this.time.toTimeString().slice(17);
+        + this.time.toTimeString().slice(0, 17) + "</b><br><span>"
+        + this.time.toTimeString().slice(17) + "</span>";
     }
 }
 

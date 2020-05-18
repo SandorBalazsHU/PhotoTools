@@ -44,3 +44,7 @@ class Weather {
         return fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=${Weather.UNITS}&APPID=${Weather.APIKEY}`).then(data => data.json());
     }
 }
+
+function isExist(x) {
+    return (x != null) && (x != undefinied) && (x != NaN);
+}

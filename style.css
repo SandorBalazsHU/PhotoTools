@@ -94,14 +94,34 @@
   line-height: 1.4em;
 }
 
+#digital-clock {
+  text-align: center;
+}
+#digital-clock span {
+  font-size: 0.8em;
+}
+
+#sun-clock-gps-details {
+  font-size: 0.9em;
+  margin: 15px 0px 5px 0px;
+}
+#sun-clock-gps-details hr {
+  margin: 2px 0px 2px 0px;
+}
+#sun-clock-gps-details span {
+  font-size: 0.8em;
+}
+
 #sun-clock-city {
   color: DarkGray;
   font-size: 0.5em;
+  z-index: -1;
 }
 
 #sun-clock-position {
   color: DarkGray;
   font-size: 0.5em;
+  z-index: -1;
 }
 
 #sun-clock-datepicker-contener {
