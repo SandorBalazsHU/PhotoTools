@@ -94,6 +94,16 @@
   line-height: 1.4em;
 }
 
+#sun-clock-city {
+  color: DarkGray;
+  font-size: 0.5em;
+}
+
+#sun-clock-position {
+  color: DarkGray;
+  font-size: 0.5em;
+}
+
 #sun-clock-datepicker-contener {
   text-align: center;
 }
@@ -394,7 +404,7 @@ body {
 
 nav {
   color: white;
-  background: #05386b;
+  background: rgba(5, 56, 107, 0.65);
   height: 48px;
   display: flex;
   align-items: center;

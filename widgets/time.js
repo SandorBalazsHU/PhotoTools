@@ -1,7 +1,7 @@
 export class Widget {
     constructor() {
         this.time = Time.getTime();
-        this.subscriptions = ["position"];
+        this.subscriptions = ["position", "city"];
         this.currentPosition = new Error("NO POSITION DATA");
         this.digitalClock = new DigitalClock("#digital-clock", this.time);
         this.analogSunClock = new AnalogSunClock("#analog-sun-clock-canvas");
@@ -60,6 +60,15 @@ export class Widget {
     async position(position) {
         if(!(position instanceof Error)) {
             this.currentPosition = position;
+
+            this.sunClockPosition = document.querySelector("#sun-clock-position");
+            this.sunClockPosition.innerHTML = "(H: " +
+            position.coords.longitude + " SZ: " +
+            position.coords.latitude + ") <br>" +
+            "Pontosság: " + position.coords.accuracy + "m " +
+            "Magasság: " + position.coords.altitude + "m " +
+            "Magasság pontossága: " + position.coords.altitudeAccuracy + "m ";
+
             const sunTimes = SunCalc.getTimes(this.time, position.coords.latitude, position.coords.longitude);
             this.analogSunClock.setSunTimes(sunTimes);
             this.digitalSunClock.setSunTimes(sunTimes);
@@ -76,6 +85,12 @@ export class Widget {
                 console.log("getMoonTimes");
                 console.log(SunCalc.getMoonTimes(new Date(), position.coords.latitude, position.coords.longitude));
             }
+        }
+    }
+    async city(city) {
+        if(!(city instanceof Error)) {
+            this.sunClockCity = document.querySelector("#sun-clock-city");
+            this.sunClockCity.innerHTML = city.address.city;
         }
     }
 }

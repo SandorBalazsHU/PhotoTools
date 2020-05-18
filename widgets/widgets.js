@@ -98,7 +98,7 @@ async function loadCity(position, widgets) {
     }
     for (var widget of widgets) {
         if(widget.subscriptions.includes("city")) {
-            widget.position(city);
+            widget.city(city);
         }
     }
 }
@@ -126,7 +126,7 @@ async function loadWeather(position, widgets) {
     }
     for (var widget of widgets) {
         if(widget.subscriptions.includes("weather")) {
-            widget.position(weather);
+            widget.weather(weather);
         }
     }
 }
@@ -154,7 +154,7 @@ async function loadForecast(position, widgets) {
     }
     for (var widget of widgets) {
         if(widget.subscriptions.includes("forecast")) {
-            widget.position(forecast);
+            widget.forecast(forecast);
         }
     }
 }
