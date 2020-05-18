@@ -4,6 +4,30 @@ export class Widget {
         this.digitalClock = new DigitalClock("#digital-clock");
         this.analogSunClock = new AnalogSunClock("#analog-sun-clock-canvas");
         this.digitalSunClock = new DigitalSunClock();
+        this.time = Time.getTime();
+        this.currentPosition = new Error("NO POSITION DATA");
+
+        this.datapicker = document.querySelector("#sun-clock-datepicker");
+        this.datapicker.defaultValue = this.time.toISOString().slice(0, 10);
+
+        this.datapickerForwardButton = document.querySelector("#sun-clock-datepicker-ForwardButton");
+        this.datapickerForwardButton.onclick = fuck;
+        var t = this;
+        function fuck() {
+            t.time.setDate(t.time.getDate()+1);
+            t.datapicker.value = t.time.toISOString().slice(0, 10);
+            if(!(t.position instanceof Error)) {
+                t.position(t.currentPosition);
+            }
+        };
+
+        this.datapickerBackwardButton = document.querySelector("#sun-clock-datepicker-BackwardButton");
+        this.datapickerBackwardButton.onclick = function() {
+            var datapicker = document.querySelector("#sun-clock-datepicker");
+            var time = new Date(datapicker.value);
+            time.setDate(time.getDate()-1);
+            datapicker.value = time.toISOString().slice(0, 10);
+        };
     }
     load() {
         this.digitalClock.start();
@@ -12,8 +36,8 @@ export class Widget {
     }
     async position(position) {
         if(!(position instanceof Error)) {
-            const time = Time.getTime();
-            const sunTimes = SunCalc.getTimes(time, position.coords.latitude, position.coords.longitude);
+            this.currentPosition = position;
+            const sunTimes = SunCalc.getTimes(this.time, position.coords.latitude, position.coords.longitude);
             this.analogSunClock.setSunTimes(sunTimes);
             this.digitalSunClock.setSunTimes(sunTimes);
 
@@ -53,14 +77,10 @@ class DigitalClock {
 
     print() {
         const time = Time.getTime();
-        const datetime = "<b>"
-        + time.getFullYear() + "."
-        + (time.getMonth()+1)  + "." 
-        + time.getDate() + ".   "
-        + time.getHours() + ":"
-        + time.getMinutes() + ":"
-        + time.getSeconds() + "<br>("
-        + Time.getTimeZoneString(time) + ")</b>";
+        const datetime = ""
+        + time.toLocaleDateString() + " - "
+        + time.toTimeString().slice(0, 17) + "<br>"
+        + time.toTimeString().slice(17);
         this.timeContainer.innerHTML = datetime;
     }
 }

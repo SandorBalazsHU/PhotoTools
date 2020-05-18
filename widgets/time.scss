@@ -3,14 +3,22 @@
     table {
         table-layout: auto;
         width: 100%;
+        padding: 0px;
+        margin: 0px
     }
     p {
         display: inline-block;
-        font-size: 2em;
+        font-size: 1.5em;
     }
-    th,td {
+    th,tr,td {
         word-wrap: break-word;
+        padding: 0px;
+        margin: 0px;
     }
+}
+
+#sun-clock-datepicker-contener {
+    text-align: center;
 }
 
 #analog-sun-clock {
