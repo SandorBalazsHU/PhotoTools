@@ -69,14 +69,29 @@
   padding: 0px;
   margin: 0px;
 }
-#time p {
-  display: inline-block;
-  font-size: 1.5em;
-}
 #time th, #time tr, #time td {
   word-wrap: break-word;
   padding: 0px;
   margin: 0px;
+}
+#time td:nth-child(3) {
+  text-align: right;
+}
+#time td:nth-child(4) {
+  text-align: right;
+}
+#time p {
+  display: inline-block;
+  font-size: 1.1em;
+  text-align: center;
+}
+#time input {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+#time button {
+  font-size: 1em;
+  line-height: 1.4em;
 }
 
 #sun-clock-datepicker-contener {
@@ -162,9 +177,6 @@
   text-align: center;
 }
 
-/*table, th, td {
-    border: 1px solid black;
-}*/
 #moon table {
   margin: auto;
 }

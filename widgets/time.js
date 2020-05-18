@@ -10,25 +10,45 @@ export class Widget {
 
         this.datapicker = document.querySelector("#sun-clock-datepicker");
         this.datapicker.defaultValue = this.time.toISOString().slice(0, 10);
-        var thisOne = this;
+        var _this = this;
+        this.datapicker.onchange = function fuck() {
+            var now = new Date(_this.datapicker.value);
+            _this.time.setFullYear(now.getFullYear());
+            _this.time.setMonth(now.getMonth());
+            _this.time.setDate(now.getDate());
+            if(!(_this.position instanceof Error)) {
+                _this.position(_this.currentPosition);
+                _this.digitalClock.print();
+            }
+        };
 
         this.datapickerForwardButton = document.querySelector("#sun-clock-datepicker-ForwardButton");
         this.datapickerForwardButton.onclick = function fuck() {
-            thisOne.time.setDate(thisOne.time.getDate()+1);
-            thisOne.datapicker.value = thisOne.time.toISOString().slice(0, 10);
-            if(!(thisOne.position instanceof Error)) {
-                thisOne.position(thisOne.currentPosition);
-                thisOne.digitalClock.print();
+            _this.time.setDate(_this.time.getDate()+1);
+            _this.datapicker.value = _this.time.toISOString().slice(0, 10);
+            if(!(_this.position instanceof Error)) {
+                _this.position(_this.currentPosition);
+                _this.digitalClock.print();
             }
         };
 
         this.datapickerBackwardButton = document.querySelector("#sun-clock-datepicker-BackwardButton");
         this.datapickerBackwardButton.onclick = function fuck() {
-            thisOne.time.setDate(thisOne.time.getDate()-1);
-            thisOne.datapicker.value = thisOne.time.toISOString().slice(0, 10);
-            if(!(thisOne.position instanceof Error)) {
-                thisOne.position(thisOne.currentPosition);
-                thisOne.digitalClock.print();
+            _this.time.setDate(_this.time.getDate()-1);
+            _this.datapicker.value = _this.time.toISOString().slice(0, 10);
+            if(!(_this.position instanceof Error)) {
+                _this.position(_this.currentPosition);
+                _this.digitalClock.print();
+            }
+        };
+
+        this.datapickerBackwardButton = document.querySelector("#sun-clock-datepicker-ResetButton");
+        this.datapickerBackwardButton.onclick = function fuck() {
+            _this.time.setTime(Time.getTime().getTime());
+            _this.datapicker.value = _this.time.toISOString().slice(0, 10);
+            if(!(_this.position instanceof Error)) {
+                _this.position(_this.currentPosition);
+                _this.digitalClock.print();
             }
         };
     }
@@ -76,8 +96,8 @@ class DigitalClock {
         this.time.setHours(now.getHours());
         this.time.setMinutes(now.getMinutes());
         this.time.setSeconds(now.getSeconds());
-        this.timeContainer.innerHTML = this.time.toLocaleDateString() + " - "
-        + this.time.toTimeString().slice(0, 17) + "<br>"
+        this.timeContainer.innerHTML = "<b>" + this.time.toLocaleDateString() + " - "
+        + this.time.toTimeString().slice(0, 17) + "</b><br>"
         + this.time.toTimeString().slice(17);
     }
 }
