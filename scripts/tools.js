@@ -1,7 +1,7 @@
 /**
  * Global constant for the DEBUG mode.
  */
-const debug = true;
+const debug = false;
 
 class Time {
     static getTime() {
