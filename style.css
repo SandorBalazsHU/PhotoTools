@@ -252,6 +252,38 @@
   text-align: center;
 }
 
+#current-weather table {
+  table-layout: auto;
+  width: 100%;
+  padding: 0px;
+  margin: auto;
+}
+#current-weather th, #current-weather tr, #current-weather td {
+  word-wrap: break-word;
+  padding: 0px;
+  margin: 0px;
+}
+#current-weather td:nth-child(2) {
+  text-align: right;
+}
+#current-weather input {
+  font-size: 1.2em;
+}
+#current-weather button {
+  font-size: 1em;
+  line-height: 1.4em;
+}
+#current-weather #current-weather-icon-container {
+  text-align: center;
+}
+#current-weather #weather-date {
+  text-align: center;
+  padding: 10px 0px 5px 0px;
+}
+#current-weather #moon-datepicker-contener {
+  text-align: center;
+}
+
 #galleryPage {
   margin: auto;
   text-align: center;
