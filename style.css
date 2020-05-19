@@ -87,7 +87,6 @@
 }
 #time input {
   font-size: 1.2em;
-  font-weight: bold;
 }
 #time button {
   font-size: 1em;
@@ -202,7 +201,6 @@
 }
 #moon input {
   font-size: 1.2em;
-  font-weight: bold;
 }
 #moon button {
   font-size: 1em;
@@ -868,8 +866,14 @@ nav #menu-toggle {
     display: none;
   }
 }
+@media screen and (min-width: 700px) {
+  nav #menu-toggle {
+    display: none;
+  }
+}
 
 .page > h1 {
+  text-align: center;
   margin: 0 0 15px 0;
   font-size: 1.5em;
   color: white;
