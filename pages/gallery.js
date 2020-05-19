@@ -230,7 +230,7 @@ function findIndexedDB (fileName, callback) {
     return true;
 }
 
-function getAllKeys(callback){
+function getAllKeys(callback) {
     var openDB = openIndexedDB();
 
     openDB.onsuccess = function() {
