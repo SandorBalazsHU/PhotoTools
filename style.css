@@ -217,6 +217,41 @@
   text-align: center;
 }
 
+#angle table {
+  table-layout: auto;
+  width: 100%;
+  padding: 0px;
+  margin: auto;
+}
+#angle th, #angle tr, #angle td {
+  word-wrap: break-word;
+  padding: 0px;
+  margin: 0px;
+}
+#angle td:nth-child(2) {
+  text-align: right;
+}
+#angle input {
+  font-size: 1.2em;
+}
+#angle button {
+  font-size: 1em;
+  line-height: 1.4em;
+}
+#angle #sun-angle {
+  text-align: center;
+}
+#angle #moon-angle {
+  text-align: center;
+}
+#angle #angle-date {
+  text-align: center;
+  padding: 10px 0px 5px 0px;
+}
+#angle #angle-datepicker-contener {
+  text-align: center;
+}
+
 #galleryPage {
   margin: auto;
   text-align: center;

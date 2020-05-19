@@ -68,10 +68,6 @@ export class Widget {
             if(debug) {
                 console.log("getTimes");
                 console.log(sunTimes);
-                console.log("getPosition");
-                console.log(SunCalc.getPosition(new Date(), position.coords.latitude, position.coords.longitude));
-                console.log("getMoonPosition");
-                console.log(SunCalc.getMoonPosition(new Date(), position.coords.latitude, position.coords.longitude));
             }
         }
     }

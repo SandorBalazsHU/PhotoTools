@@ -14,7 +14,7 @@ export async function load() {
     /*
      * The list of the available widgets.
      */
-    const availableWidgets = ["time", "moon"];
+    const availableWidgets = ["time", "moon", "angle"];
     /*
      * The loaded widget objects.
      */
