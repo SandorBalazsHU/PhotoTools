@@ -73,9 +73,10 @@ export class Widget {
     }
     async city(city) {
         if(!(city instanceof Error)) {
+            var place = isExist(city.address.city) ? city.address.city : city.address.municipality;
             this.sunClockGPS = document.querySelector("#sun-clock-gps-details");
             this.sunClockGPS.innerHTML += "<summary> Pozíció: " + city.address.country_code
-            + " " + city.address.postcode + " " + city.address.city + "</summary>"
+            + " " + city.address.postcode + " " + place + "</summary>"
             +"<span>" + city.address.country + " " + city.address.country_code + " <br>" +
             city.address.postcode + " " + city.address.city + " <br>" +
             city.address.region + ", " + city.address.county + ", " +
