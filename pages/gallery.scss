@@ -1,18 +1,17 @@
 #galleryPage{
-    margin: auto;
-    text-align: center;
-}
+  margin: auto;
+  text-align: center;
 
-#fullScreen{
+  #fullScreen{
     display: none;
     margin:auto;
     width: 100%;
     height: 100%;
     object-fit: cover;
     z-index: $layer-backdrop - 100;
-}
+  }
 
-#infoBtn{
+  #infoBtn{
     display: none;
     position: fixed;
     //right:50%;
@@ -23,18 +22,18 @@
     bottom: 0px;
     color: $secondary-color;
     text-decoration: none;
-  
+
     @include tablet{
       margin-right:-$icon-size*3/2;
     }
     @include desktop{
       margin-right:-$icon-size*3/2;
     }
-  
+
     i {
       padding: $icon-size*0.2 $icon-size*0.2;
       font-size: $icon-size*2;
-  
+
       @include tablet{
         padding: $icon-size*0.5 $icon-size*0.5;
         font-size: $icon-size*2;
@@ -44,9 +43,9 @@
         font-size: $icon-size*2;
       }
     }
-}
+  }
 
-#backBtn{
+  #backBtn{
     display: none;
     position: fixed;
     left: 10%;
@@ -54,18 +53,18 @@
     bottom: 0px;
     color: $secondary-color;
     text-decoration: none;
-  
+
     @include tablet{
       margin-left:-$icon-size*3/2;
     }
     @include desktop{
       margin-left:-$icon-size*3/2;
     }
-  
+
     i {
       padding: $icon-size*0.2 $icon-size*0.2;
       font-size: $icon-size*1.8;
-  
+
       @include tablet{
         padding: $icon-size*0.5 $icon-size*0.5;
         font-size: $icon-size*2;
@@ -75,9 +74,9 @@
         font-size: $icon-size*2;
       }
     }
-}
+  }
 
-#deleteBtn{
+  #deleteBtn{
     display: none;
     position: fixed;
     right:10%;
@@ -85,18 +84,18 @@
     bottom: 0px;
     color: $secondary-color;
     text-decoration: none;
-  
+
     @include tablet{
       margin-right:-$icon-size*3/2;
     }
     @include desktop{
       margin-right:-$icon-size*3/2;
     }
-  
+
     i {
       padding: $icon-size*0.2 $icon-size*0.2;
       font-size: $icon-size*1.8;
-  
+
       @include tablet{
         padding: $icon-size*0.5 $icon-size*0.5;
         font-size: $icon-size*2;
@@ -106,15 +105,15 @@
         font-size: $icon-size*2;
       }
     }
-}
+  }
 
-canvas{
+  canvas{
   margin: 2px;
   padding: 0px;
-}
+  }
 
 
-.modal {
+  .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
@@ -129,10 +128,10 @@ canvas{
   -webkit-animation-duration: 0.4s;
   animation-name: fadeIn;
   animation-duration: 0.4s
-}
+  }
 
-/* Modal Content */
-.modal-content {
+  /* Modal Content */
+  .modal-content {
   position: fixed;
   bottom: 0;
   background-color: #fefefe;
@@ -141,39 +140,39 @@ canvas{
   -webkit-animation-duration: 0.4s;
   animation-name: slideIn;
   animation-duration: 0.4s
-}
+  }
 
-/* The Close Button */
-.close {
+  /* The Close Button */
+  .close {
   color: $background-color;
   float: right;
   font-size: 28px;
   font-weight: bold;
-}
+  }
 
-.close:hover,
-.close:focus {
+  .close:hover,
+  .close:focus {
   color: #000;
   text-decoration: none;
   cursor: pointer;
-}
+  }
 
-.modal-header {
+  .modal-header {
   padding: 2px 16px;
   background-color: $primary-color;
   color: $background-color;
-}
+  }
 
-.modal-body {padding: 2px 16px;}
+  .modal-body {padding: 2px 16px;}
 
-.modal-footer {
+  .modal-footer {
   padding: 2px 16px;
   background-color: $secondary-color;
   color: $background-color;
-}
+  }
 
 
-button {
+  button {
   background-color: white;
   color: $text-color;
   border: none;
@@ -184,31 +183,31 @@ button {
   display: inline-block;
   font-size: 16px;
   margin: 10px;
-}
+  }
 
 
-/* Add Animation */
-@-webkit-keyframes slideIn {
+  /* Add Animation */
+  @-webkit-keyframes slideIn {
   from {bottom: -300px; opacity: 0} 
   to {bottom: 0; opacity: 1}
-}
+  }
 
-@keyframes slideIn {
+  @keyframes slideIn {
   from {bottom: -300px; opacity: 0}
   to {bottom: 0; opacity: 1}
-}
+  }
 
-@-webkit-keyframes fadeIn {
+  @-webkit-keyframes fadeIn {
   from {opacity: 0} 
   to {opacity: 1}
-}
+  }
 
-@keyframes fadeIn {
+  @keyframes fadeIn {
   from {opacity: 0} 
   to {opacity: 1}
-}
+  }
 
-#loader {
+  #loader {
   position: fixed;
   display: none;
   border: 16px solid #f3f3f3; /* Light grey */
@@ -226,9 +225,10 @@ button {
   width: 60px;
   height: 60px;
   animation: spin 2s linear infinite;
-}
+  }
 
-@keyframes spin {
+  @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+  }
 }

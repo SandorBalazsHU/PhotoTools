@@ -1,116 +1,190 @@
-export function load(appDatas) {
-    var options = {
-        enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: 0
-    };
-    function error(err) {
-        console.warn(`ERROR(${err.code}): ${err.message}`);
+var fileNames;
+
+export function load() {
+    let map = L.map("map").setView([47.5, 19], 13);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+  
+    var _fileNames = "";
+    var mapContainer = document.querySelector("#map");
+    mapContainer.onclick = function() {
+        for(let i=0; i<_fileNames.length; i++) {
+            loadImg(fileNames[i]);
+        }
     }
 
-    function success(pos) {
-        var centerlat = pos.coords.latitude;
-        var centerlon =  pos.coords.longitude;
-        
-        // set default zoom level
-        var zoomLevel = 2;
-        
-        // initialize map
-        var map = L.map('map').setView([centerlat, centerlon], zoomLevel);
-        
-        // Set up the OSM layer
-        var background = L.tileLayer(
-            'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
-            {maxZoom: 18, opacity: 0.5}).addTo(map);
-        
-        function onEachDot(feature, layer) {
-            layer.bindPopup('<table style="width:180px"><tbody><tr><td><div><b>name:</b></div></td><td><div>' + feature.properties.popup + '</div></td></tr><tr class><td><div><b>time:</b></div></td><td><div>' + feature.properties.time + '</div></td></tr></tbody></table>');
+    getAllKeys(() => {
+        _fileNames = fileNames;
+        for(let i=0; i<fileNames.length; i++) {
+            findIndexedDB (fileNames[i], (info) => {
+                var msg = "<canvas id=\"map-"+info.fileName+"\" width=\"200\" height=\"200\"></canvas><br>" +
+                "Latitude: " +info.latitude+ "<br>" + 
+                "Longitude:" +info.longitude+ "<br>" + 
+                "Dátum: " +info.date+ "<br>" + 
+                "Megjegyzés: " +info.comment;
+                placePoint(info.latitude+Math.random(), info.longitude+Math.random(), msg);
+                console.log(msg);
+            });
+            loadImg(fileNames[i]);
         }
-        
-        //create data and add it to the map
-        var spiralsteps = 60;
-        var spiral = make_spiral_json(spiralsteps, [centerlat, centerlon], 0, 1, 0.3, 0.97, 0.1, 0.1);
-        
-        var spiralLayer = L.geoJson(spiral, {
-            onEachFeature: onEachDot
-        });
-        
-        var spiralBounds = spiralLayer.getBounds();
-        map.fitBounds(spiralBounds);
-        spiralLayer.addTo(map);
-        
-        function connectTheDots(data){
-            var c = [];
-            for(var i in data._layers) {
-                var x = data._layers[i]._latlng.lat;
-                var y = data._layers[i]._latlng.lng;
-                c.push([x, y]);
-            }
-            return c;
-        }
-        
-        var spiralCoords = connectTheDots(spiralLayer);
-        var spiralLine = L.polyline(spiralCoords).addTo(map)
-        
-        /////////////////////////////////////////////////////////////////////////////////////////////
-        //functions for creating synthetic GeoJSON data//
-        /////////////////////////////////////////////////////////////////////////////////////////////
-        
-        //cheapo normrand function
-        function normish(mean, range) {
-            var num_out = ((Math.random() + Math.random() + Math.random() + Math.random() - 2) / 2) * range + mean;
-            return num_out;
-        }
-        
-        //zero padding for time stamps
-        function zeroPad(num, places) {
-            var zero = places - num.toString().length + 1;
-            return Array(+(zero > 0 && zero)).join("0") + num;
-        }
-        
-        function make_spiral_json(steps, init_pt, init_angle, init_dist, turn, persistence, wobble, lurch) {
-        
-            var spiral = {
-                type: "FeatureCollection",
-                features: []
-            };
-        
-            var x = init_pt[1];
-            var y = init_pt[0];
-            var c = [
-                [x, y]
-            ];
-            var angle = init_angle;
-            var dist = init_dist;
-        
-            for (var i = 0; i < steps; ++i) {
-        
-                var hour = 2 + Math.floor(i / 60);
-                var min = zeroPad(i % 60, 2);
-        
-                var g = {
-                    "type": "Point",
-                        "coordinates": [x, y]
-                };
-                var p = {
-                    "id": i,
-                        "popup": "ping_" + i,
-                        "time": hour + ':' + min
-                };
-                spiral.features.push({
-                    "geometry": g,
-                        "type": "Feature",
-                        "properties": p
-                });
-        
-                x = x + dist * Math.sin(angle) *1.5;
-                y = y + dist * Math.cos(angle);
-                //        c.push([x, y]);
-                dist = dist * (persistence + lurch * normish(0, 1));
-                angle = angle + turn + wobble * normish(0, 1);
-            }
-            return spiral;
-        }
+    });
+
+    function placePoint(latitude, longitude, msg) {
+        map.setView([latitude, longitude]);
+        var marker = L.marker([latitude, longitude]).addTo(map);
+        var popup = marker.bindPopup(msg);
+        popup.openPopup();  
     }
-    navigator.geolocation.getCurrentPosition(success, error, options);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function loadImg(fileName){
+    findIndexedDB (fileName, (data) => {
+        var img = new Image();
+        img.src = data.file;
+        img.onload = function(i){
+            const canvas = document.getElementById("map-"+data.fileName);
+            
+            let s;
+            if(this.height > this.width){
+                s = canvas.width / this.width;
+            }else{
+                s = canvas.height / this.height;
+            }
+            console.log(s);
+
+            const x = s*this.width/2 - canvas.width/2;
+            const y = s*this.height/2 - canvas.height/2;
+
+            canvas.getContext('2d').scale(s, s);
+            canvas.getContext('2d').drawImage(img,-x,-y);
+            
+        };
+    })
+}
+
+function showPhoto(e){
+    loading();
+    const canvases = photos.querySelectorAll(":scope > canvas");
+    canvases.forEach((canvas) => {
+      canvas.style.display = 'none';
+    });
+
+    const fileName = e.target.id;
+
+    findIndexedDB (fileName, (data) => {
+        var img = new Image();
+        img.src = data.file;
+        img.onload = function(){
+            fullScreen.width = this.width;
+            fullScreen.height = this.height;
+            fullScreen.getContext('2d').drawImage(img,0,0);
+            fullScreen.setAttribute("data-src", data.fileName);
+            loadedPhoto();
+        };
+    })
+}
+
+
+function loading(){
+    document.getElementById('loader').style.display="block";
+}
+
+function loadedPhoto(){
+    document.getElementById('loader').style.display="none";
+    fullScreen.style.display = 'block';
+    infoBtn.style.display = 'block';
+    backBtn.style.display = 'block';
+    deleteBtn.style.display = 'block';
+}
+
+
+function openIndexedDB () {
+    var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB;
+    var openDB = indexedDB.open("PhotoTourStore", 1);
+  
+    openDB.onupgradeneeded = function() {
+      var db = {}
+      db.result = openDB.result;
+      db.store = db.result.createObjectStore("PhotoTourStore", {keyPath: "fileName"});
+    };
+  
+    return openDB;
+}
+  
+function getStoreIndexedDB (openDB) {
+    var db = {};
+    db.result = openDB.result;
+    db.tx = db.result.transaction("PhotoTourStore", "readwrite");
+    db.store = db.tx.objectStore("PhotoTourStore");
+    //request.onsuccess = function(event) {
+        return db;
+    //}
+}
+
+function findIndexedDB (fileName, callback) {
+    var openDB = openIndexedDB();
+
+    openDB.onsuccess = function() {
+        var db = getStoreIndexedDB(openDB);
+        var request = db.store.get(fileName);
+
+        request.onsuccess = function() {
+            callback(request.result);
+        };
+        db.tx.oncomplete = function() {
+            db.result.close();
+        };
+    }
+
+    return true;
+}
+
+function getAllKeys(callback){
+    var openDB = openIndexedDB();
+
+    openDB.onsuccess = function() {
+        var db = getStoreIndexedDB (openDB);
+        var request = db.store.getAllKeys();
+        request.onsuccess = function(event) {
+            fileNames = request.result;
+            callback();
+        };
+        db.tx.oncomplete = function() {
+            db.result.close();
+        };
+    }
+
+    return true;
+}
+
+function deleteIndexedDb(fileName){
+    var openDB = openIndexedDB();
+
+    openDB.onsuccess = function() {
+        var db = getStoreIndexedDB (openDB);
+        var request = db.store.delete(fileName);
+        db.tx.oncomplete = function() {
+            db.result.close();
+        };
+    }
+    
+    return true;
 }

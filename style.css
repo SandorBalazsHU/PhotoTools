@@ -9,7 +9,7 @@
   margin-top: 15px;
   width: 100%;
 }
-@media screen and (min-width: 510px) {
+@media screen and (min-width: 700px) {
   .columns .column {
     flex-grow: 1;
     flex-wrap: nowrap;
@@ -17,15 +17,11 @@
     max-width: 50%;
   }
 }
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 1024px) {
   .columns .column {
-    max-width: 33.333%;
+    max-width: 33%;
   }
 }
-.columns .column .card {
-  height: 100%;
-}
-
 .card {
   background-color: rgba(255, 255, 255, 0.6);
   border-radius: 3px;
@@ -64,20 +60,505 @@
   padding: 10px 15px;
 }
 
-#capture {
+#time {
+  min-width: 300px;
+}
+#time table {
+  table-layout: auto;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+}
+#time th, #time tr, #time td {
+  word-wrap: break-word;
+  padding: 0px;
+  margin: 0px;
+}
+#time td:nth-child(3) {
+  text-align: right;
+}
+#time td:nth-child(4) {
+  text-align: right;
+}
+#time p {
+  display: inline-block;
+  font-size: 1.1em;
+  text-align: center;
+}
+#time input {
+  font-size: 1.2em;
+}
+#time button {
+  font-size: 1em;
+  line-height: 1.4em;
+}
+#time #digital-clock {
+  text-align: center;
+}
+#time #digital-clock span {
+  font-size: 0.8em;
+}
+#time #sun-clock-gps-details {
+  font-size: 0.9em;
+  margin: 15px 0px 5px 0px;
+}
+#time #sun-clock-gps-details hr {
+  margin: 2px 0px 2px 0px;
+}
+#time #sun-clock-gps-details span {
+  font-size: 0.8em;
+}
+#time #sun-clock-city {
+  color: DarkGray;
+  font-size: 0.5em;
+  z-index: -1;
+}
+#time #sun-clock-position {
+  color: DarkGray;
+  font-size: 0.5em;
+  z-index: -1;
+}
+#time #sun-clock-datepicker-contener {
+  text-align: center;
+}
+#time #analog-sun-clock {
+  text-align: center;
+}
+#time #digital-sun-clock-eveningGoldenHourLogo {
+  text-align: center;
+  color: Gold;
+}
+#time #digital-sun-clock-sunsetLogo {
+  text-align: center;
+  color: OrangeRed;
+}
+#time #digital-sun-clock-eveningTwilightLogo {
+  text-align: center;
+  color: SkyBlue;
+}
+#time #digital-sun-clock-eveningNauticalTwilightLogo {
+  text-align: center;
+  color: DodgerBlue;
+}
+#time #digital-sun-clock-eveningAstronomicalTwilightLogo {
+  text-align: center;
+  color: RoyalBlue;
+}
+#time #digital-sun-clock-eveningNightLogo {
+  text-align: center;
+  color: MidnightBlue;
+}
+#time #digital-sun-clock-morningAstronomicalTwilightLogo {
+  text-align: center;
+  color: RoyalBlue;
+}
+#time #digital-sun-clock-morningNauticalTwilightLogo {
+  text-align: center;
+  color: DodgerBlue;
+}
+#time #digital-sun-clock-morningTwilightLogo {
+  text-align: center;
+  color: SkyBlue;
+}
+#time #digital-sun-clock-sunriseStartLogo {
+  text-align: center;
+  color: OrangeRed;
+}
+#time #digital-sun-clock-morningGoldenHourLogo {
+  text-align: center;
+  color: Gold;
+}
+#time #digital-sun-clock-noonLogo {
+  text-align: center;
+  color: Yellow;
+  font-size: 1em;
+}
+#time #digital-sun-clock-noon {
+  text-align: center;
+}
+#time #digital-sun-clock-midnightLogo {
+  text-align: center;
+  color: MidnightBlue;
+  font-size: 1em;
+}
+#time #digital-sun-clock-midnight {
+  text-align: center;
+}
+
+#moon table {
+  table-layout: auto;
+  width: 100%;
+  padding: 0px;
+  margin: auto;
+}
+#moon th, #moon tr, #moon td {
+  word-wrap: break-word;
+  padding: 0px;
+  margin: 0px;
+}
+#moon td:nth-child(2) {
+  text-align: right;
+}
+#moon input {
+  font-size: 1.2em;
+}
+#moon button {
+  font-size: 1em;
+  line-height: 1.4em;
+}
+#moon #moon-phase {
+  text-align: center;
+}
+#moon #moon-date {
+  text-align: center;
+  padding: 10px 0px 5px 0px;
+}
+#moon #moon-datepicker-contener {
+  text-align: center;
+}
+
+#angle table {
+  table-layout: auto;
+  width: 100%;
+  padding: 0px;
+  margin: auto;
+}
+#angle th, #angle tr, #angle td {
+  word-wrap: break-word;
+  padding: 0px;
+  margin: 0px;
+}
+#angle td:nth-child(2) {
+  text-align: right;
+}
+#angle input {
+  font-size: 1.2em;
+}
+#angle button {
+  font-size: 1em;
+  line-height: 1.4em;
+}
+#angle #sun-angle {
+  text-align: center;
+}
+#angle #moon-angle {
+  text-align: center;
+}
+#angle #angle-date {
+  text-align: center;
+  padding: 10px 0px 5px 0px;
+}
+#angle #angle-datepicker-contener {
+  text-align: center;
+}
+
+#current-weather table {
+  table-layout: auto;
+  width: 100%;
+  padding: 0px;
+  margin: auto;
+}
+#current-weather th, #current-weather tr, #current-weather td {
+  word-wrap: break-word;
+  padding: 0px;
+  margin: 0px;
+}
+#current-weather td:nth-child(2) {
+  text-align: right;
+}
+#current-weather input {
+  font-size: 1.2em;
+}
+#current-weather button {
+  font-size: 1em;
+  line-height: 1.4em;
+}
+#current-weather #current-weather-icon-container {
+  text-align: center;
+}
+#current-weather #weather-date {
+  text-align: center;
+  padding: 10px 0px 5px 0px;
+}
+#current-weather #moon-datepicker-contener {
+  text-align: center;
+}
+
+#galleryPage {
+  margin: auto;
+  text-align: center;
+  /* Modal Content */
+  /* The Close Button */
+  /* Add Animation */
+}
+#galleryPage #fullScreen {
+  display: none;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+#galleryPage #infoBtn {
+  display: none;
   position: fixed;
-  right: 50%;
-  margin-right: -1.8em;
+  left: 50%;
+  transform: translateX(-50%);
   bottom: 0px;
   color: #7a8174;
   text-decoration: none;
 }
-@media screen and (min-width: 510px) {
+@media screen and (min-width: 700px) {
+  #galleryPage #infoBtn {
+    margin-right: -2.25em;
+  }
+}
+@media screen and (min-width: 1024px) {
+  #galleryPage #infoBtn {
+    margin-right: -2.25em;
+  }
+}
+#galleryPage #infoBtn i {
+  padding: 0.3em 0.3em;
+  font-size: 3em;
+}
+@media screen and (min-width: 700px) {
+  #galleryPage #infoBtn i {
+    padding: 0.75em 0.75em;
+    font-size: 3em;
+  }
+}
+@media screen and (min-width: 1024px) {
+  #galleryPage #infoBtn i {
+    padding: 0.75em 0.75em;
+    font-size: 3em;
+  }
+}
+#galleryPage #backBtn {
+  display: none;
+  position: fixed;
+  left: 10%;
+  margin-left: -1.65em;
+  bottom: 0px;
+  color: #7a8174;
+  text-decoration: none;
+}
+@media screen and (min-width: 700px) {
+  #galleryPage #backBtn {
+    margin-left: -2.25em;
+  }
+}
+@media screen and (min-width: 1024px) {
+  #galleryPage #backBtn {
+    margin-left: -2.25em;
+  }
+}
+#galleryPage #backBtn i {
+  padding: 0.3em 0.3em;
+  font-size: 2.7em;
+}
+@media screen and (min-width: 700px) {
+  #galleryPage #backBtn i {
+    padding: 0.75em 0.75em;
+    font-size: 3em;
+  }
+}
+@media screen and (min-width: 1024px) {
+  #galleryPage #backBtn i {
+    padding: 0.75em 0.75em;
+    font-size: 3em;
+  }
+}
+#galleryPage #deleteBtn {
+  display: none;
+  position: fixed;
+  right: 10%;
+  margin-right: -1.65em;
+  bottom: 0px;
+  color: #7a8174;
+  text-decoration: none;
+}
+@media screen and (min-width: 700px) {
+  #galleryPage #deleteBtn {
+    margin-right: -2.25em;
+  }
+}
+@media screen and (min-width: 1024px) {
+  #galleryPage #deleteBtn {
+    margin-right: -2.25em;
+  }
+}
+#galleryPage #deleteBtn i {
+  padding: 0.3em 0.3em;
+  font-size: 2.7em;
+}
+@media screen and (min-width: 700px) {
+  #galleryPage #deleteBtn i {
+    padding: 0.75em 0.75em;
+    font-size: 3em;
+  }
+}
+@media screen and (min-width: 1024px) {
+  #galleryPage #deleteBtn i {
+    padding: 0.75em 0.75em;
+    font-size: 3em;
+  }
+}
+#galleryPage canvas {
+  margin: 2px;
+  padding: 0px;
+}
+#galleryPage .modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: black;
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.2);
+  /* Black w/ opacity */
+  -webkit-animation-name: fadeIn;
+  /* Fade in the background */
+  -webkit-animation-duration: 0.4s;
+  animation-name: fadeIn;
+  animation-duration: 0.4s;
+}
+#galleryPage .modal-content {
+  position: fixed;
+  bottom: 0;
+  background-color: #fefefe;
+  width: 100%;
+  -webkit-animation-name: slideIn;
+  -webkit-animation-duration: 0.4s;
+  animation-name: slideIn;
+  animation-duration: 0.4s;
+}
+#galleryPage .close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+#galleryPage .close:hover,
+#galleryPage .close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+#galleryPage .modal-header {
+  padding: 2px 16px;
+  background-color: #05386b;
+  color: white;
+}
+#galleryPage .modal-body {
+  padding: 2px 16px;
+}
+#galleryPage .modal-footer {
+  padding: 2px 16px;
+  background-color: #7a8174;
+  color: white;
+}
+#galleryPage button {
+  background-color: white;
+  color: #38454d;
+  border: none;
+  font-weight: bold;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px;
+}
+@-webkit-keyframes slideIn {
+  from {
+    bottom: -300px;
+    opacity: 0;
+  }
+  to {
+    bottom: 0;
+    opacity: 1;
+  }
+}
+@keyframes slideIn {
+  from {
+    bottom: -300px;
+    opacity: 0;
+  }
+  to {
+    bottom: 0;
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+#galleryPage #loader {
+  position: fixed;
+  display: none;
+  border: 16px solid #f3f3f3;
+  /* Light grey */
+  border-top: 16px solid #3498db;
+  /* Blue */
+  border-radius: 50%;
+  right: 0;
+  left: 0;
+  margin-right: auto;
+  margin-left: auto;
+  top: 0;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 60px;
+  height: 60px;
+  animation: spin 2s linear infinite;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+#capture {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0px;
+  color: #7a8174;
+  text-decoration: none;
+}
+@media screen and (min-width: 700px) {
   #capture {
     margin-right: -2.25em;
   }
 }
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 1024px) {
   #capture {
     margin-right: -2.25em;
   }
@@ -86,13 +567,13 @@
   padding: 0.3em 0.3em;
   font-size: 3em;
 }
-@media screen and (min-width: 510px) {
+@media screen and (min-width: 700px) {
   #capture i {
     padding: 0.75em 0.75em;
     font-size: 3em;
   }
 }
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 1024px) {
   #capture i {
     padding: 0.75em 0.75em;
     font-size: 3em;
@@ -108,12 +589,12 @@
   color: #7a8174;
   text-decoration: none;
 }
-@media screen and (min-width: 510px) {
+@media screen and (min-width: 700px) {
   #back {
     margin-left: -2.25em;
   }
 }
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 1024px) {
   #back {
     margin-left: -2.25em;
   }
@@ -122,13 +603,13 @@
   padding: 0.3em 0.3em;
   font-size: 2.7em;
 }
-@media screen and (min-width: 510px) {
+@media screen and (min-width: 700px) {
   #back i {
     padding: 0.75em 0.75em;
     font-size: 3em;
   }
 }
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 1024px) {
   #back i {
     padding: 0.75em 0.75em;
     font-size: 3em;
@@ -144,12 +625,12 @@
   color: #7a8174;
   text-decoration: none;
 }
-@media screen and (min-width: 510px) {
+@media screen and (min-width: 700px) {
   #save {
     margin-right: -2.25em;
   }
 }
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 1024px) {
   #save {
     margin-right: -2.25em;
   }
@@ -158,13 +639,13 @@
   padding: 0.3em 0.3em;
   font-size: 2.7em;
 }
-@media screen and (min-width: 510px) {
+@media screen and (min-width: 700px) {
   #save i {
     padding: 0.75em 0.75em;
     font-size: 3em;
   }
 }
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 1024px) {
   #save i {
     padding: 0.75em 0.75em;
     font-size: 3em;
@@ -207,28 +688,50 @@
 #comment {
   z-index: 200;
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  padding: 12px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  width: 250px;
+  height: 160px;
+  right: 0;
+  left: 0;
+  margin-right: auto;
+  margin-left: auto;
+  top: 0;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
   display: none;
+}
+@media screen and (min-width: 700px) {
+  #comment {
+    width: 320px;
+    height: 240px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  #comment {
+    width: 400px;
+    height: 250px;
+  }
 }
 
 #save2 {
   z-index: 200;
   display: none;
   position: fixed;
-  right: 50%;
-  margin-right: -1.8em;
+  left: 50%;
+  transform: translateX(-50%);
   bottom: 0px;
   color: #05386b;
   text-decoration: none;
 }
-@media screen and (min-width: 510px) {
+@media screen and (min-width: 700px) {
   #save2 {
     margin-right: -2.25em;
   }
 }
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 1024px) {
   #save2 {
     margin-right: -2.25em;
   }
@@ -237,13 +740,13 @@
   padding: 0.3em 0.3em;
   font-size: 3em;
 }
-@media screen and (min-width: 510px) {
+@media screen and (min-width: 700px) {
   #save2 i {
     padding: 0.75em 0.75em;
     font-size: 3em;
   }
 }
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 1024px) {
   #save2 i {
     padding: 0.75em 0.75em;
     font-size: 3em;
@@ -265,6 +768,7 @@
   position: fixed;
   top: 20%;
   left: 50%;
+  transform: translateX(-50%);
   opacity: 0;
   -webkit-animation-name: fadeOut;
   -webkit-animation-duration: 2s;
@@ -288,252 +792,6 @@
     opacity: 0;
   }
 }
-#galleryPage {
-  margin: auto;
-  text-align: center;
-}
-
-#fullScreen {
-  display: none;
-  margin: auto;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
-}
-
-#infoBtn {
-  display: none;
-  position: fixed;
-  right: 50%;
-  margin-right: -1.8em;
-  bottom: 0px;
-  color: #7a8174;
-  text-decoration: none;
-}
-@media screen and (min-width: 510px) {
-  #infoBtn {
-    margin-right: -2.25em;
-  }
-}
-@media screen and (min-width: 900px) {
-  #infoBtn {
-    margin-right: -2.25em;
-  }
-}
-#infoBtn i {
-  padding: 0.3em 0.3em;
-  font-size: 3em;
-}
-@media screen and (min-width: 510px) {
-  #infoBtn i {
-    padding: 0.75em 0.75em;
-    font-size: 3em;
-  }
-}
-@media screen and (min-width: 900px) {
-  #infoBtn i {
-    padding: 0.75em 0.75em;
-    font-size: 3em;
-  }
-}
-
-#backBtn {
-  display: none;
-  position: fixed;
-  left: 10%;
-  margin-left: -1.65em;
-  bottom: 0px;
-  color: #7a8174;
-  text-decoration: none;
-}
-@media screen and (min-width: 510px) {
-  #backBtn {
-    margin-left: -2.25em;
-  }
-}
-@media screen and (min-width: 900px) {
-  #backBtn {
-    margin-left: -2.25em;
-  }
-}
-#backBtn i {
-  padding: 0.3em 0.3em;
-  font-size: 2.7em;
-}
-@media screen and (min-width: 510px) {
-  #backBtn i {
-    padding: 0.75em 0.75em;
-    font-size: 3em;
-  }
-}
-@media screen and (min-width: 900px) {
-  #backBtn i {
-    padding: 0.75em 0.75em;
-    font-size: 3em;
-  }
-}
-
-#deleteBtn {
-  display: none;
-  position: fixed;
-  right: 10%;
-  margin-right: -1.65em;
-  bottom: 0px;
-  color: #7a8174;
-  text-decoration: none;
-}
-@media screen and (min-width: 510px) {
-  #deleteBtn {
-    margin-right: -2.25em;
-  }
-}
-@media screen and (min-width: 900px) {
-  #deleteBtn {
-    margin-right: -2.25em;
-  }
-}
-#deleteBtn i {
-  padding: 0.3em 0.3em;
-  font-size: 2.7em;
-}
-@media screen and (min-width: 510px) {
-  #deleteBtn i {
-    padding: 0.75em 0.75em;
-    font-size: 3em;
-  }
-}
-@media screen and (min-width: 900px) {
-  #deleteBtn i {
-    padding: 0.75em 0.75em;
-    font-size: 3em;
-  }
-}
-
-canvas {
-  margin: 2px;
-  padding: 0px;
-}
-
-.modal {
-  display: none;
-  /* Hidden by default */
-  position: fixed;
-  /* Stay in place */
-  z-index: 1;
-  /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%;
-  /* Full width */
-  height: 100%;
-  /* Full height */
-  overflow: auto;
-  /* Enable scroll if needed */
-  background-color: black;
-  /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.2);
-  /* Black w/ opacity */
-  -webkit-animation-name: fadeIn;
-  /* Fade in the background */
-  -webkit-animation-duration: 0.4s;
-  animation-name: fadeIn;
-  animation-duration: 0.4s;
-}
-
-/* Modal Content */
-.modal-content {
-  position: fixed;
-  bottom: 0;
-  background-color: #fefefe;
-  width: 100%;
-  -webkit-animation-name: slideIn;
-  -webkit-animation-duration: 0.4s;
-  animation-name: slideIn;
-  animation-duration: 0.4s;
-}
-
-/* The Close Button */
-.close {
-  color: white;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.modal-header {
-  padding: 2px 16px;
-  background-color: #05386b;
-  color: white;
-}
-
-.modal-body {
-  padding: 2px 16px;
-}
-
-.modal-footer {
-  padding: 2px 16px;
-  background-color: #7a8174;
-  color: white;
-}
-
-button {
-  background-color: white;
-  color: #38454d;
-  border: none;
-  font-weight: bold;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 10px;
-}
-
-/* Add Animation */
-@-webkit-keyframes slideIn {
-  from {
-    bottom: -300px;
-    opacity: 0;
-  }
-  to {
-    bottom: 0;
-    opacity: 1;
-  }
-}
-@keyframes slideIn {
-  from {
-    bottom: -300px;
-    opacity: 0;
-  }
-  to {
-    bottom: 0;
-    opacity: 1;
-  }
-}
-@-webkit-keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
 body {
   margin: 0;
   padding: 0;
@@ -545,15 +803,15 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  top: 48px;
+  top: 0;
   z-index: -1;
-  background: url("assets/bg2.jpg") no-repeat center center fixed;
+  background: url("assets/bg.jpg") no-repeat center center fixed;
   background-size: cover;
 }
 
 nav {
   color: white;
-  background: #05386b;
+  background: rgba(5, 56, 107, 0.65);
   height: 48px;
   display: flex;
   align-items: center;
@@ -564,7 +822,7 @@ nav #menu-trigger {
 nav #logo {
   color: Tomato;
 }
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 1024px) {
   nav #logo {
     font-size: 3em;
     justify-self: left;
@@ -572,7 +830,7 @@ nav #logo {
     padding: 0 10px;
   }
 }
-@media screen and (min-width: 510px) {
+@media screen and (min-width: 700px) {
   nav #logo {
     font-size: 2em;
   }
@@ -622,7 +880,7 @@ nav #menu #rightMenu {
 nav #menu #rightMenu i {
   padding: 0;
 }
-@media screen and (min-width: 510px) {
+@media screen and (min-width: 700px) {
   nav #menu {
     background: none;
     display: inline-block;
@@ -647,7 +905,7 @@ nav #menu #rightMenu i {
     display: inline-block;
   }
 }
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 1024px) {
   nav #menu {
     order: 3;
   }
@@ -675,13 +933,19 @@ nav #menu-toggle {
   margin: 5px;
   width: 35px;
 }
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 1024px) {
+  nav #menu-toggle {
+    display: none;
+  }
+}
+@media screen and (min-width: 700px) {
   nav #menu-toggle {
     display: none;
   }
 }
 
 .page > h1 {
+  text-align: center;
   margin: 0 0 15px 0;
   font-size: 1.5em;
   color: white;

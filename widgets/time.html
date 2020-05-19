@@ -1,3 +1,115 @@
 <div class="column">
-<div id="time" class="card"><h1>Jelenlegi dátum és idő:</h1></div>
+    <div id="time" class="card">
+        <h1>Fényviszonyk, napszakok.</h1>
+        <hr>
+        <table>
+            <tr>
+                <td colspan="4" id="analog-sun-clock">
+                    <canvas id="analog-sun-clock-canvas" width="200" height="200"></canvas>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <div id="digital-clock"></div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" id="sun-clock-gps">
+                    <details id="sun-clock-gps-details"><hr></details>
+                </td>
+            </tr>
+            </tr>
+            <tr>
+                <td colspan="4" id="sun-clock-datepicker-contener">
+                    <hr>
+                    <button id="sun-clock-datepicker-BackwardButton"><</button>
+                    <input type="date" id="sun-clock-datepicker">
+                    <button id="sun-clock-datepicker-ResetButton">X</button>
+                    <button id="sun-clock-datepicker-ForwardButton">></button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4"><hr></td>
+            </tr>
+            <tr>
+                <td id="digital-sun-clock-eveningGoldenHourLogo"><p>&#9646;</p></td>
+                <td>Esti aranyóra: </td>
+                <td id="digital-sun-clock-eveningGoldenHourStart"></td>
+                <td id="digital-sun-clock-eveningGoldenHourEnd"></td>
+            </tr>
+            <tr>
+                <td id="digital-sun-clock-sunsetLogo"><p>&#9646;</p></td>
+                <td>Naplemente: </td>
+                <td id="digital-sun-clock-sunsetStart"></td>
+                <td id="digital-sun-clock-sunsetEnd"></td>
+            </tr>
+            <tr>
+                <td id="digital-sun-clock-eveningTwilightLogo"><p>&#9646;</p></td>
+                <td>Esti szürkület: </td>
+                <td id="digital-sun-clock-eveningTwilightStart"></td>
+                <td id="digital-sun-clock-eveningTwilightEnd"></td>
+            </tr>
+            <tr>
+                <td id="digital-sun-clock-eveningNauticalTwilightLogo"><p>&#9646;</p></td>
+                <td>Esti tengeri szürkület: </td>
+                <td id="digital-sun-clock-eveningNauticalTwilightStart"></td>
+                <td id="digital-sun-clock-eveningNauticalTwilightEnd"></td>
+            </tr>
+            <tr>
+                <td id="digital-sun-clock-eveningAstronomicalTwilightLogo"><p>&#9646;</p></td>
+                <td>Esti csillagászati szürkület: </td>
+                <td id="digital-sun-clock-eveningAstronomicalTwilightStart"></td>
+                <td id="digital-sun-clock-eveningAstronomicalTwilightEnd"></td>
+            </tr>
+            <tr>
+                <td id="digital-sun-clock-eveningNightLogo"><p>&#9646;</p></td>
+                <td>Éjjszaka: </td>
+                <td id="digital-sun-clock-eveningNightStart"></td>
+                <td id="digital-sun-clock-eveningNightEnd"></td>
+            </tr>
+            <tr>
+                <td id="digital-sun-clock-morningAstronomicalTwilightLogo"><p>&#9646;</p></td>
+                <td>Reggeli csillagászati szürkület: </td>
+                <td id="digital-sun-clock-morningAstronomicalTwilightStart"></td>
+                <td id="digital-sun-clock-morningAstronomicalTwilightEnd"></td>
+            </tr>
+            <tr>
+                <td id="digital-sun-clock-morningNauticalTwilightLogo"><p>&#9646;</p></td>
+                <td>Reggeli tengeri szürkület: </td>
+                <td id="digital-sun-clock-morningNauticalTwilightStart"></td>
+                <td id="digital-sun-clock-morningNauticalTwilightEnd"></td>
+            </tr>
+            <tr>
+                <td id="digital-sun-clock-morningTwilightLogo"><p>&#9646;</p></td>
+                <td>Reggeli szürkület: </td>
+                <td id="digital-sun-clock-morningTwilightStart"></td>
+                <td id="digital-sun-clock-morningTwilightEnd"></td>
+            </tr>
+            <tr>
+                <td id="digital-sun-clock-sunriseStartLogo"><p>&#9646;</p></td>
+                <td>Napkelte: </td>
+                <td id="digital-sun-clock-sunriseStart"></td>
+                <td id="digital-sun-clock-sunriseEnd"></td>
+            </tr>
+            <tr>
+                <td id="digital-sun-clock-morningGoldenHourLogo"><p>&#9646;</p></td>
+                <td>Reggeli aranyóra: </td>
+                <td id="digital-sun-clock-morningGoldenHourStart"></td>
+                <td id="digital-sun-clock-morningGoldenHourEnd"></td>
+            </tr>
+            <tr>
+                <td colspan="4"><hr></td>
+            </tr>
+            <tr>
+                <td id="digital-sun-clock-noonLogo"><p>&#9679;</p></td>
+                <td>Csillagászati dél: </td>
+                <td id="digital-sun-clock-noon" colspan="2"></td>
+            </tr>
+            <tr>
+                <td id="digital-sun-clock-midnightLogo"><p>&#9679;</p></td>
+                <td>Csillagászati éjjfél: </td>
+                <td id="digital-sun-clock-midnight" colspan="2"></td>
+            </tr>
+        </table>
+    </div>
 </div>
