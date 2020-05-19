@@ -83,7 +83,7 @@ export class Widget {
             +"<span>" + city.address.country + " " + city.address.country_code + " <br>" +
             city.address.postcode + " " + city.address.city + " <br>" +
             city.address.region + ", " + city.address.county + ", " +
-            city.address.municipality + ", " + "</span><br>";
+            city.address.municipality + " " + "</span><br>";
 
             const altitude = isExist(this.currentPosition.coords.altitude) ? this.currentPosition.coords.altitude : " - ";
             const altitudeAccuracy = isExist(this.currentPosition.coords.altitudeAccuracy) ? this.currentPosition.coords.altitudeAccuracy : " - ";

@@ -4,15 +4,12 @@ export class Widget {
         this.time = Time.getTime();
         this.moonTimes = "";
         this.moonIllumination = "";
-        if(debug) {
-            console.log("getMoonIllumination");
-            console.log(this.moonIllumination);
-        }
         this.moonPhaseDrawer = new MoonPhaseDrawer("#moon-phase-canvas");
         this.moonRiseContainer = document.querySelector("#moon-moonrise");
         this.moonSetContainer = document.querySelector("#moon-moonset");
         this.moonAlvaysDawn = document.querySelector("#moon-alvays-dawn");
         this.moonAlvaysUp = document.querySelector("#moon-alvays-up");
+        this.moonPhase = document.querySelector("#moon-moonphase");
         this.moonDate = document.querySelector("#moon-date");
         this.currentPosition = new Error("NO POSITION DATA");
         this.setDatePicker();
@@ -22,6 +19,11 @@ export class Widget {
         this.moonIllumination = SunCalc.getMoonIllumination(this.time);
         this.moonPhaseDrawer.print(this.moonIllumination.phase);
         this.moonDate.innerHTML = "<b>" + this.time.toLocaleDateString() + "</b>";
+        this.moonPhase.innerHTML = (this.moonIllumination.fraction*100) + "%";
+        if(debug) {
+            console.log("getMoonIllumination");
+            console.log(this.moonIllumination);
+        }
     }
 
     async position(position) {
