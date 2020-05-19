@@ -1,32 +1,32 @@
-export function load(widgetDatas) {
-
-    var options = {
-        enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: 0
-    };
-    function error(err) {
-        console.warn(`ERROR(${err.code}): ${err.message}`);
+export class Widget {
+    constructor(){
+        this.subscriptions = ["weather"];
+        this.time = Time.getTime();
+        this.currentWeatherClouds           = document.querySelector("#current-weather-clouds");
+        this.currentWeatherTemp             = document.querySelector("#current-weather-temp");
+        this.currentWeatherFeels_like       = document.querySelector("#current-weather-feels_like");
+        this.currentWeatherPressure         = document.querySelector("#current-weather-pressure");
+        this.currentWeatherHumidity         = document.querySelector("#current-weather-humidity");
+        this.currentWeather = new Error("NO WEATHER DATA");
     }
-    function success(pos) {
-        const crd = pos.coords;
-        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${crd.latitude}&lon=${crd.longitude}&units=metric&APPID=22a4b426901996099500de4125c3b1da`)
-        .then(data => data.json())
-        .then(data => printCurrentWeather(data))
-        .catch(e => console.log("ERROR"))
-        function printCurrentWeather(data) {
-            const currentWeatherIcon = document.querySelector("#wicon");
-            var iconcode = data.weather[0].icon;
-            var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+
+    load() {
+    }
+
+    async weather(weather) {
+        if(!(weather instanceof Error)) {
+            this.currentWeather = weather;
+
+            var currentWeatherIcon = document.querySelector("#current-weather-icon");
+            var iconcode = this.currentWeather.weather[0].icon;
+            var iconurl = "http://openweathermap.org/img/wn/" + iconcode + "@2x.png";
             currentWeatherIcon.src = iconurl;
-    
-            const currentWeatherContainer = document.querySelector("#current-weather");
-            const output = "<b>Hőmérséklet: </b>" + data.main.temp + " &#8451;<br>" +
-            "<b>Hőérzet: </b>" + data.main.feels_like + " &#8451;<br>" +
-            "<b>Légnyomás: </b>" + data.main.pressure + " &#8451;<br>";
-            currentWeatherContainer.innerHTML += output;
-            console.log(data);
+
+            this.currentWeatherClouds.innerHTML     = this.currentWeather.clouds.all + " %";
+            this.currentWeatherTemp.innerHTML       = this.currentWeather.main.temp + " &#8451;";
+            this.currentWeatherFeels_like.innerHTML = this.currentWeather.main.feels_like + " &#8451;";
+            this.currentWeatherPressure.innerHTML   = this.currentWeather.main.pressure + " hPa";
+            this.currentWeatherHumidity.innerHTML   = this.currentWeather.main.humidity + " %";
         }
     }
-    navigator.geolocation.getCurrentPosition(success, error, options);
 }

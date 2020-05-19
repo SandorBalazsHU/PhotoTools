@@ -1,7 +1,10 @@
 #capture {
   position: fixed;
-  right:50%;
-  margin-right:-$icon-size *((2 / 2) + 0.2);
+  //right:50%;
+  //margin-right:-$icon-size *((2 / 2) + 0.2);
+  left: 50%;
+  transform: translateX(-50%);
+
   bottom: 0px;
   color: $secondary-color;
   text-decoration: none;
@@ -130,18 +133,46 @@
 #comment{
   z-index: $layer-overlay;
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+
+  padding: 12px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+
+  //top: 50%;
+  //left: 50%;
+  //transform: translate(-50%, -50%);
+  width: 250px;
+  height: 160px;
+
+  right: 0;
+  left: 0;
+  margin-right: auto;
+  margin-left: auto;
+  top: 0;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+
   display: none;
+  @include tablet{
+    width: 320px;
+    height: 240px;
+  }
+  @include desktop{
+    width: 400px;
+    height: 250px;
+  }
 }
 
 #save2 {
   z-index: $layer-overlay;
   display: none;
   position: fixed;
-  right:50%;
-  margin-right:-$icon-size*((2 / 2) + 0.2);
+  //right:50%;
+  //margin-right:-$icon-size*((2 / 2) + 0.2);
+  left: 50%;
+  transform: translateX(-50%);
+
   bottom: 0px;
   color: $primary-color;
   text-decoration: none;
@@ -182,7 +213,10 @@
   z-index: $layer-overlay;
   position: fixed;
   top: 20%;
+
   left: 50%;
+  transform: translateX(-50%);
+
   opacity: 0;
   -webkit-animation-name: fadeOut; 
   -webkit-animation-duration: 2s;

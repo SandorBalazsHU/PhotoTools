@@ -1,6 +1,7 @@
 const backdrop = document.querySelector("#backdrop");
 const trigger = document.querySelector("#menu-toggle");
 const menu = document.querySelector("#menu");
+const main = document.querySelector("main");
 
 trigger.addEventListener("pointerdown", function() {
   menu.classList.toggle("open");
@@ -12,10 +13,7 @@ menu.addEventListener("pointerdown", function () {
   backdrop.classList.remove("visible");
 });
 
-var appData = new AppData();
-
-const main = document.querySelector("main");
-
+//const pages = ["index", "camera", "gps", "map", "galery"];
 async function loadPage(page) {
   const response = await fetch(`pages/${page}.html`);
   if (!response.ok) {
@@ -23,7 +21,7 @@ async function loadPage(page) {
   }
   const html = await response.text();
   main.innerHTML = html;
-  (await import(`../pages/${page}.js`)).load(appData);
+  (await import(`../pages/${page}.js`)).load();
 }
 
 function handleHashChange() {

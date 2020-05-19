@@ -8,7 +8,6 @@ var fileNames;
 export async function load() {
 
     getAllKeys(() => {
-        console.log(fileNames);
 
         photos = document.getElementById('photos');
         let canvases = photos.querySelectorAll(":scope > canvas");
@@ -20,14 +19,22 @@ export async function load() {
                 canvasText += "<canvas id='" + fileNames[i] + "'></canvas>";
             }
             photos.innerHTML = canvasText;
-            console.log(photos.innerHTML);
             
             canvases = photos.querySelectorAll(":scope > canvas");
-            console.log("lekértem a canvasokat: ");
-            console.log(canvases);
+            let canvasAmount = 1;
+            let canvasSize = 0;
+            if(window.innerWidth > 900){
+                canvasAmount = Math.floor(window.innerWidth / (230));
+            } else if(window.innerHeight < 900 && window.innerWidth >510){
+                canvasAmount = Math.floor(window.innerWidth / (150));
+            } else {
+                canvasAmount = 2;
+            }
+            canvasSize = (window.innerWidth-30) / canvasAmount
+
             canvases.forEach((canvas) => {
-                canvas.width = window.innerWidth / 3 - 10;
-                canvas.height = window.innerWidth / 3 - 10;
+                canvas.width = canvasSize;
+                canvas.height = canvasSize;
                 canvas.addEventListener('click', showPhoto)
             });
             
@@ -98,10 +105,10 @@ export async function load() {
         findIndexedDB (fileName, (info) => {
             const infoBody = document.getElementById("infoBody");
             infoBody.innerHTML = "<p>Fájl név:   " +info.fileName+ "</p>" + 
-            "<p>Latitude:   " +info.latitude+ "</p>" + 
-            "<p>Longitude:   " +info.longitude+ "</p>" + 
-            "<p>Dátum:   " +info.date+ "</p>" + 
-            "<p>Megjegyzés:   " +info.comment+ "</p>";
+            "<h3>Latitude:   </h3><p>" +info.latitude+ "</p>" + 
+            "<h3>Longitude:   </h3><p>" +info.longitude+ "</p>" + 
+            "<h3>Dátum:   </h3><p>" +info.date+ "</p>" + 
+            "<h3>Megjegyzés:   </h3><p>" +info.comment+ "</p>";
           }
         );
     });
@@ -125,17 +132,29 @@ function loadImg(fileName){
     findIndexedDB (fileName, (data) => {
         var img = new Image();
         img.src = data.file;
-        img.onload = function(){
+        img.onload = function(i){
             const canvas = document.getElementById(data.fileName);
-            console.log(canvas);
-            const x = this.width/2 - canvas.width/2;
-            const y = this.height/2 - canvas.height/2;
+            
+            let s;
+            if(this.height > this.width){
+                s = canvas.width / this.width;
+            }else{
+                s = canvas.height / this.height;
+            }
+            console.log(s);
+
+            const x = s*this.width/2 - canvas.width/2;
+            const y = s*this.height/2 - canvas.height/2;
+
+            canvas.getContext('2d').scale(s, s);
             canvas.getContext('2d').drawImage(img,-x,-y);
+            
         };
     })
 }
 
 function showPhoto(e){
+    loading();
     const canvases = photos.querySelectorAll(":scope > canvas");
     canvases.forEach((canvas) => {
       canvas.style.display = 'none';
@@ -151,9 +170,18 @@ function showPhoto(e){
             fullScreen.height = this.height;
             fullScreen.getContext('2d').drawImage(img,0,0);
             fullScreen.setAttribute("data-src", data.fileName);
+            loadedPhoto();
         };
     })
+}
 
+
+function loading(){
+    document.getElementById('loader').style.display="block";
+}
+
+function loadedPhoto(){
+    document.getElementById('loader').style.display="none";
     fullScreen.style.display = 'block';
     infoBtn.style.display = 'block';
     backBtn.style.display = 'block';
@@ -202,7 +230,7 @@ function findIndexedDB (fileName, callback) {
     return true;
 }
 
-function getAllKeys(callback){
+function getAllKeys(callback) {
     var openDB = openIndexedDB();
 
     openDB.onsuccess = function() {
