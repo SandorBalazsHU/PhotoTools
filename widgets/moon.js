@@ -46,7 +46,7 @@ export class Widget {
         this.datapicker = document.querySelector("#moon-datepicker");
         this.datapicker.defaultValue = this.time.toISOString().slice(0, 10);
         var _this = this;
-        this.datapicker.onchange = function fuck() {
+        this.datapicker.onchange = function() {
             var now = new Date(_this.datapicker.value);
             _this.time.setFullYear(now.getFullYear());
             _this.time.setMonth(now.getMonth());
