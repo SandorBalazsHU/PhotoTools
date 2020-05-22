@@ -1,5 +1,4 @@
 let photos = document.getElementById('photos');
-const fullScreen = document.getElementById('fullScreen');
 const infoBtn = document.getElementById('infoBtn');
 const backBtn = document.getElementById('backBtn');
 const deleteBtn = document.getElementById('deleteBtn');
@@ -7,8 +6,13 @@ var fileNames;
 
 export async function load() {
 
+    console.log("reload")
+    //location.reload();
+
     getAllKeys(() => {
 
+        document.getElementById('fullScreen').style.display = 'none';
+        console.log("elrejtve");
         photos = document.getElementById('photos');
         let canvases = photos.querySelectorAll(":scope > canvas");
 
@@ -73,7 +77,7 @@ export async function load() {
     });
 
     document.getElementById("deletebtn").addEventListener("click", function(){
-        const src = fullScreen.getAttribute("data-src");
+        const src = document.getElementById('fullScreen').getAttribute("data-src");
         console.log(src);
 
         deleteIndexedDb(src);
@@ -85,12 +89,12 @@ export async function load() {
             }
         });
         canvases = photos.querySelectorAll(":scope > canvas");
-        document.getElementById("deleteModal").style.display = "none";
+        document.getElementById("deleteModal").style.display = 'none';
 
-        infoBtn.style.display = "none";
-        backBtn.style.display = "none";
-        backBtn.style.display = "none";
-        fullScreen.style.display = "none";
+        document.getElementById('infoBtn').style.display = 'none';
+        document.getElementById('backBtn').style.display = 'none';
+        document.getElementById('deleteBtn').style.display = 'none';
+        document.getElementById('fullScreen').style.display = 'none';
         canvases = photos.querySelectorAll(":scope > canvas");
         canvases.forEach((canvas) => {
           canvas.style.display = 'inline-block';
@@ -101,7 +105,7 @@ export async function load() {
     infoBtn.addEventListener("click", function() {
         const infoModal = document.getElementById("infoModal");
         infoModal.style.display = "block";
-        const fileName = fullScreen.getAttribute("data-src");
+        const fileName = document.getElementById('fullScreen').getAttribute("data-src");
         findIndexedDB (fileName, (info) => {
             const infoBody = document.getElementById("infoBody");
             infoBody.innerHTML = "<p>Fájl név:   " +info.fileName+ "</p>" + 
@@ -115,10 +119,10 @@ export async function load() {
 
 
     backBtn.addEventListener("click", function() {
-        infoBtn.style.display = "none";
-        backBtn.style.display = "none";
-        backBtn.style.display = "none";
-        fullScreen.style.display = "none";
+        document.getElementById('infoBtn').style.display = "none";
+        document.getElementById('backBtn').style.display = "none";
+        document.getElementById('deleteBtn').style.display = "none";
+        document.getElementById('fullScreen').style.display = "none";
         const canvases = photos.querySelectorAll(":scope > canvas");
         canvases.forEach((canvas) => {
           canvas.style.display = 'inline-block';
@@ -153,7 +157,12 @@ function loadImg(fileName){
     })
 }
 
+
+
 function showPhoto(e){
+    console.log(document.getElementById('fullScreen'));
+
+
     loading();
     const canvases = photos.querySelectorAll(":scope > canvas");
     canvases.forEach((canvas) => {
@@ -166,26 +175,34 @@ function showPhoto(e){
         var img = new Image();
         img.src = data.file;
         img.onload = function(){
+            let fullScreen = document.getElementById('fullScreen');
             fullScreen.width = this.width;
             fullScreen.height = this.height;
             fullScreen.getContext('2d').drawImage(img,0,0);
             fullScreen.setAttribute("data-src", data.fileName);
             loadedPhoto();
+            
         };
     })
 }
 
-
 function loading(){
+    console.log("loading")
     document.getElementById('loader').style.display="block";
 }
 
 function loadedPhoto(){
-    document.getElementById('loader').style.display="none";
-    fullScreen.style.display = 'block';
-    infoBtn.style.display = 'block';
-    backBtn.style.display = 'block';
-    deleteBtn.style.display = 'block';
+    for(let i=0; i<4; i++){
+    console.log("1");
+    document.getElementById("fullScreen").style.display='inline-block';
+    console.log(document.getElementById('fullScreen'));
+    document.getElementById('infoBtn').style.display='block';
+    document.getElementById('backBtn').style.display='block';
+    document.getElementById('deleteBtn').style.display='block';
+    document.getElementById('loader').style.display='none';
+    console.log("2");
+
+    }
 }
 
 
